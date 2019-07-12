@@ -1,0 +1,16 @@
+{
+  "name": "js-helper",
+  "displayName": "Helper",
+  "version": "0.1.0",
+  "description": "Ein paar JS-Helper",
+  "scripts": {
+    "build": "node bin/build.js",
+    "update packages": "node bin/updateCopies.js"
+  },
+  "author": "Silas Günther",
+  "peerDependencies": {
+  },
+  "dependencies": {},
+  "devDependencies": {
+  }
+}
