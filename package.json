@@ -11,6 +11,7 @@
   "peerDependencies": {
   },
   "dependencies": {},
+  "main": "dist/shared.mjs",
   "devDependencies": {
   }
 }

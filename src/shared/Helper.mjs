@@ -1,6 +1,8 @@
 /**
  * Eine Klasse mit häufig genutzten, nützlichen Funktionen
  */
+import {JsonHelper} from "./JsonHelper";
+
 export class Helper {
     /**
      * Testet, ob eine Variable null oder Undefined ist
@@ -94,30 +96,7 @@ export class Helper {
      * @returns {*}
      */
     static cloneJson(obj) {
-        // https://stackoverflow.com/questions/4120475/how-to-create-and-clone-a-json-object/17502990#17502990
-        let i;
-
-        // basic type deep copy
-        if (Helper.isNull(obj) || typeof obj !== 'object') {
-            return obj
-        }
-        // array deep copy
-        if (obj instanceof Array) {
-            let cloneA = [];
-            for (i = 0; i < obj.length; ++i) {
-                cloneA[i] = Helper.cloneJson(obj[i]);
-            }
-            return cloneA;
-        }
-        if (obj instanceof Date) {
-            return new Date(obj.getTime());
-        }
-        // object deep copy
-        let cloneO = {};
-        for (i in obj) {
-            cloneO[i] = Helper.cloneJson(obj[i]);
-        }
-        return cloneO;
+       return JsonHelper.deepCopy(obj)
     }
 
     /**
