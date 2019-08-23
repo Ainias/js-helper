@@ -15,7 +15,7 @@ function findNames(dir, excluded) {
         if (stats.isDirectory()) {
             let nameObject = findNames(dir + file + '/', excluded);
             names = Object.assign(names, nameObject);
-        } else if ((file.endsWith(".js") ) && !excluded.includes(dir + file)) {
+        } else if ((file.endsWith(".ts") ) && !excluded.includes(dir + file)) {
             names[file.substring(0, file.length - 3)] = dir + file.substring(0, file.length - 3);
         }
         else if ((file.endsWith(".mjs") ) && !excluded.includes(dir + file)) {
@@ -53,14 +53,14 @@ buildEntryPoints({
     input: [
         path.resolve(process.cwd(), "src/server/"),
     ],
-}, "./dist/server.mjs");
+}, "./dist/server.ts");
 buildEntryPoints({
     input: [
         path.resolve(process.cwd(), "src/client/"),
     ],
-}, "./dist/client.mjs");
+}, "./dist/client.ts");
 buildEntryPoints({
     input: [
         path.resolve(process.cwd(), "src/shared/"),
     ],
-}, "./dist/shared.mjs");
+}, "./dist/shared.ts");

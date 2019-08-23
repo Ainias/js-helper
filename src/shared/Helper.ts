@@ -32,7 +32,7 @@ export class Helper {
      * @param args
      * @returns {*}
      */
-    static nonNull(val1, val2, ...args) {
+    static nonNull(val1, val2?, ...args) {
         for (let i = 0; i < arguments.length; i++) {
             if (Helper.isNotNull(arguments[i])) {
                 return arguments[i];
@@ -147,7 +147,7 @@ export class Helper {
         return array;
     }
 
-    static padZero(n, width, z) {
+    static padZero(n, width?, z?) {
         z = Helper.nonNull(z, '0');
         n = n + '';
         width = Helper.nonNull(width, 1);
@@ -217,7 +217,7 @@ export class Helper {
         return new_obj;
     }
 
-    static async asyncForEach(array, callback, runAsyncronous) {
+    static async asyncForEach(array, callback, runAsyncronous?) {
         runAsyncronous = Helper.nonNull(runAsyncronous, false);
 
         let validPromises = [];
@@ -262,8 +262,8 @@ export class Helper {
             resolver = resolve;
             rejecter = reject;
         });
-        promise.resolve = resolver;
-        promise.reject = rejecter;
+        promise["resolve"] = resolver;
+        promise["reject"] = rejecter;
 
         return promise;
     }
