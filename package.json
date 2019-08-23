@@ -11,7 +11,7 @@
   "peerDependencies": {
   },
   "dependencies": {},
-  "main": "dist/shared.mjs",
+  "main": "dist/shared.ts",
   "devDependencies": {
   }
 }
