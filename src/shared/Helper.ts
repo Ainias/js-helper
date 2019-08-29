@@ -10,8 +10,21 @@ export class Helper {
      * @param variable
      * @returns {boolean}
      */
-    static isNull(variable) {
-        return (variable === null || variable === undefined);
+    static isNull(variable, ...args) {
+        return Helper.isAllNull(...arguments);
+    }
+
+    static isAllNull(...args){
+        for (let i = 0; i < args.length; i++) {
+            if (!(args[i] === null || args[i] === undefined)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static isAtLeastOneNull(...args){
+        return !Helper.isAllNull(...args);
     }
 
     /**
@@ -20,9 +33,23 @@ export class Helper {
      * @param variable
      * @returns {boolean}
      */
-    static isNotNull(variable) {
-        return !Helper.isNull(variable);
+    static isNotNull(variable, ...args) {
+        return Helper.isAllNotNull(...arguments);
     }
+
+    static isAllNotNull(...args){
+        for (let i = 0; i < args.length; i++) {
+            if ((args[i] === null || args[i] === undefined)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static isAtLeastOneNotNull(...args){
+        return !Helper.isAllNull(...args);
+    }
+
 
     /**
      * Gibt den ersten übergebenen Wert, der nicht (null oder undefined) ist, zurück
