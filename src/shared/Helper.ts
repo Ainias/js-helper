@@ -3,6 +3,8 @@
  */
 import {JsonHelper} from "./JsonHelper";
 
+declare let device: any;
+
 export class Helper {
     /**
      * Testet, ob eine Variable null oder Undefined ist
@@ -111,21 +113,6 @@ export class Helper {
             formData.set(k, obj[k]);
         }
         return formData;
-    }
-
-    /**
-     * Entfernt alle Children eines Elements
-     *
-     * @param element
-     * @returns {Node}
-     */
-    static removeAllChildren(element) {
-        if (element instanceof Node) {
-            while (element.firstChild) {
-                element.removeChild(element.firstChild);
-            }
-        }
-        return element;
     }
 
     static shuffleArray(array) {
@@ -266,5 +253,9 @@ export class Helper {
         promise["reject"] = rejecter;
 
         return promise;
+    }
+
+    static isMobileApp(){
+        return (typeof device !== "undefined" && device.platform !== "browser")
     }
 }
