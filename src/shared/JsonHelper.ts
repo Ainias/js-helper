@@ -8,7 +8,7 @@ export class JsonHelper {
 
         // array deepEqual
         if (a instanceof Array && b instanceof Array && a.length === b.length) {
-            return a["all"]((obj, i) => {
+            return a["every"]((obj, i) => {
                 return JsonHelper.deepEqual(obj, b[i])
             });
         }
@@ -23,7 +23,7 @@ export class JsonHelper {
             let aKeys = Object.keys(a);
             let bKeys = Object.keys(b);
 
-            return aKeys.length === bKeys.length && aKeys["all"]((key) => {
+            return aKeys.length === bKeys.length && aKeys["every"]((key) => {
                 return Helper.isNotNull(b[key]) && JsonHelper.deepEqual(a[key], b[key])
             })
         }
