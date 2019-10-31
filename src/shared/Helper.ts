@@ -285,4 +285,8 @@ export class Helper {
     static isMobileApp(){
         return (typeof device !== "undefined" && device.platform !== "browser")
     }
+
+    static toSnakeCase(camelCase){
+        return camelCase.replace(/([A-Z])/g, function(find, something, position ){return ((position > 0)?"_":"")+find[0].toLowerCase();});
+    }
 }
