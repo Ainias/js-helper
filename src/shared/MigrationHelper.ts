@@ -97,7 +97,7 @@ export class MigrationHelper {
 
         Object.keys(schemaDefinition.relations).forEach(relation => {
             if (schemaDefinition.relations[relation].type === "many-to-one" || schemaDefinition.relations[relation].joinColumn){
-                let columnName = Helper.toSnakeCase(schemaDefinition.relations[relation].target)+"Id";
+                let columnName = Helper.toSnakeCase(relation)+"Id";
                 let columnConfig = {
                     name: columnName,
                     type: MigrationHelper.TYPES.INTEGER,
