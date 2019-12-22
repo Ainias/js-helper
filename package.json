@@ -4,16 +4,19 @@
   "version": "0.1.0",
   "description": "Ein paar JS-Helper",
   "scripts": {
-    "build": "node bin/build.js",
+    "build": "node bin/build.js &tsc",
     "update packages": "node bin/updateCopies.js"
   },
   "author": "Silas Günther",
   "peerDependencies": {
-    "typeorm": "^0.2.21"
+    "typeorm": "^0.2.20"
   },
   "dependencies": {},
-  "main": "dist/shared.ts",
+  "main": "dist/shared.js",
   "devDependencies": {
-    "typeorm": "^0.2.21"
+    "@types/node": "^12.12.14",
+    "js-helper": "git+https://github.com/Ainias/js-helper#0.2",
+    "typeorm": "^0.2.20",
+    "typescript": "^3.7.2"
   }
 }

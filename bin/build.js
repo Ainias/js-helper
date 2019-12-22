@@ -53,14 +53,14 @@ buildEntryPoints({
     input: [
         path.resolve(process.cwd(), "src/server/"),
     ],
-}, "./dist/server.ts");
+}, "./src/server.ts");
 buildEntryPoints({
     input: [
         path.resolve(process.cwd(), "src/client/"),
     ],
-}, "./dist/client.ts");
+}, "./src/client.ts");
 buildEntryPoints({
     input: [
         path.resolve(process.cwd(), "src/shared/"),
     ],
-}, "./dist/shared.ts");
+}, "./src/shared.ts");
