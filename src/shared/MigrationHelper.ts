@@ -1,4 +1,4 @@
-import {Table} from "typeorm";
+import {QueryRunner, Table} from "typeorm";
 import {Helper} from "./Helper";
 
 export class MigrationHelper {
@@ -9,11 +9,11 @@ export class MigrationHelper {
         return (typeof document !== "object")
     }
 
-    static async addTableFromModelClass(modelClass, queryRunner){
+    static async addTableFromModelClass(modelClass, queryRunner) {
         return await queryRunner.createTable(this.createTableFromModelClass(modelClass));
     }
 
-    static async addManyToManyTable(tableOne, tableTwo, queryRunner){
+    static async addManyToManyTable(tableOne, tableTwo, queryRunner) {
         return await queryRunner.createTable(this.createManyToManyTable(tableOne, tableTwo));
     }
 
@@ -66,12 +66,14 @@ export class MigrationHelper {
         return manyToManyTable;
     }
 
-    static createTableFromModelClass(modelClass) {
+    static createTableFromModelClass(modelClass, prefix?) {
+        prefix = Helper.nonNull(prefix, "");
+
         let columns = [];
         let indices = [];
         let foreignKeys = [];
         let schemaDefinition = modelClass.getSchemaDefinition();
-        let tableName = Helper.toSnakeCase(schemaDefinition.name);
+        let tableName = prefix + Helper.toSnakeCase(schemaDefinition.name);
 
         Object.keys(schemaDefinition.columns).forEach(column => {
             let columnConfig = {
@@ -89,15 +91,16 @@ export class MigrationHelper {
                 }
             }
 
-            if (columnConfig.type === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()){
+            if (columnConfig.type === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
                 columnConfig.type = MigrationHelper.TYPES.TEXT
             }
             columns.push(columnConfig);
         });
 
         Object.keys(schemaDefinition.relations).forEach(relation => {
-            if (schemaDefinition.relations[relation].type === "many-to-one" || schemaDefinition.relations[relation].joinColumn){
-                let columnName = Helper.toSnakeCase(relation)+"Id";
+            if (schemaDefinition.relations[relation].type === "many-to-one" || schemaDefinition.relations[relation].joinColumn) {
+                // let columnName = Helper.toSnakeCase(relation) + "Id";
+                let columnName = relation.substr(0,1).toLowerCase()+relation.substr(1) + "Id";
                 let columnConfig = {
                     name: columnName,
                     type: MigrationHelper.TYPES.INTEGER,
@@ -106,13 +109,13 @@ export class MigrationHelper {
                 columns.push(columnConfig);
 
                 let indexConfig = {
-                    name: "IDX_"+tableName+"_"+columnName,
+                    name: "IDX_" + tableName + "_" + columnName,
                     columnNames: [columnName]
                 };
                 indices.push(indexConfig);
 
                 let foreignKeyConfig = {
-                    name: "FK_"+tableName+"_"+columnName,
+                    name: "FK_" + tableName + "_" + columnName,
                     columnNames: [columnName],
                     referencedTableName: Helper.toSnakeCase(schemaDefinition.relations[relation].target),
                     referencedColumnNames: ["id"]
@@ -128,7 +131,32 @@ export class MigrationHelper {
             foreignKeys: foreignKeys
         });
     }
+
+    static async updateModel(queryRunner: QueryRunner, newModel) {
+
+        let schemaDefinition = newModel.getSchemaDefinition();
+        let tableName = Helper.toSnakeCase(schemaDefinition.name);
+        let tableNameTemp = tableName + "__temp__";
+
+        let newTable = this.createTableFromModelClass(newModel, "__temp__");
+        // newTable.name = tableNameTemp;
+        tableNameTemp = newTable.name;
+
+        await queryRunner.createTable(newTable);
+
+        let table = await queryRunner.getTable(tableName);
+
+        let names = [];
+        table.columns.forEach(column => {
+            names.push(column.name);
+        });
+
+        await queryRunner.query("INSERT INTO " + tableNameTemp + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + tableName + ";");
+        await queryRunner.query("DROP TABLE " + tableName + ";");
+        await queryRunner.query("ALTER TABLE " + tableNameTemp + " RENAME TO " + tableName + ";");
+    }
 }
+
 MigrationHelper.TYPES = {
     INTEGER: "int",
     FLOAT: "float",
@@ -139,5 +167,5 @@ MigrationHelper.TYPES = {
     BOOLEAN: "boolean",
     JSON: "json",
     SIMPLE_JSON: "simple-json",
-    MY_JSON:"my-json"
+    MY_JSON: "my-json"
 };

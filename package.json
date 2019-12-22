@@ -9,9 +9,11 @@
   },
   "author": "Silas Günther",
   "peerDependencies": {
+    "typeorm": "^0.2.21"
   },
   "dependencies": {},
   "main": "dist/shared.ts",
   "devDependencies": {
+    "typeorm": "^0.2.21"
   }
 }
