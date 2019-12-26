@@ -87,6 +87,9 @@ class MigrationHelper {
             if (schemaDefinition.columns[column].primary) {
                 columnConfig["isPrimary"] = true;
             }
+            if (schemaDefinition.columns[column].nullable) {
+                columnConfig["isNullable"] = true;
+            }
             if (schemaDefinition.columns[column].generated) {
                 //If it is not EasySyncBaseModel or server
                 if (Helper_1.Helper.isNull(modelClass.CAN_BE_SYNCED) || this.isServer()) {

@@ -6,6 +6,9 @@ class JsonHelper {
         if (a === b) {
             return true;
         }
+        if (a === null || b === null) {
+            return false;
+        }
         // array deepEqual
         if (a instanceof Array && b instanceof Array && a.length === b.length) {
             return a["every"]((obj, i) => {
