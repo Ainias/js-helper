@@ -88,7 +88,7 @@ export class MigrationHelper {
             }
             if (schemaDefinition.columns[column].generated) {
                 //If it is not EasySyncBaseModel or server
-                if (Helper.isNull(modelClass.CAN_BE_SYNCED) || this.isServer()) {
+                if (Helper.isNull(modelClass.CAN_BE_SYNCED) || this.isServer() || column === "clientId") {
                     columnConfig["isGenerated"] = true;
                     columnConfig["generationStrategy"] = "increment" as "increment";
                 }
