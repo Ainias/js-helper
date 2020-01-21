@@ -1,5 +1,6 @@
 import {QueryRunner, Table} from "typeorm";
 import {Helper} from "./Helper";
+import {JsonHelper} from "./JsonHelper";
 
 export class MigrationHelper {
 
@@ -76,10 +77,13 @@ export class MigrationHelper {
         let tableName = prefix + Helper.toSnakeCase(schemaDefinition.name);
 
         Object.keys(schemaDefinition.columns).forEach(column => {
-            let columnConfig = {
-                name: column,
-                type: schemaDefinition.columns[column].type
-            };
+
+            let columnConfig = {};
+            Object.keys(schemaDefinition.columns[column]).forEach(key => {
+                columnConfig[key] = schemaDefinition.columns[column][key];
+            });
+            columnConfig["name"] = column;
+
             if (schemaDefinition.columns[column].primary) {
                 columnConfig["isPrimary"] = true;
             }
@@ -93,9 +97,12 @@ export class MigrationHelper {
                     columnConfig["generationStrategy"] = "increment" as "increment";
                 }
             }
+            if (typeof columnConfig["default"] === "string") {
+                columnConfig["default"] = "'"+columnConfig["default"]+"'";
+            }
 
-            if (columnConfig.type === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
-                columnConfig.type = MigrationHelper.TYPES.TEXT
+            if (columnConfig["type"] === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
+                columnConfig["type"] = MigrationHelper.TYPES.TEXT
             }
             columns.push(columnConfig);
         });
@@ -103,7 +110,7 @@ export class MigrationHelper {
         Object.keys(schemaDefinition.relations).forEach(relation => {
             if (schemaDefinition.relations[relation].type === "many-to-one" || schemaDefinition.relations[relation].joinColumn) {
                 // let columnName = Helper.toSnakeCase(relation) + "Id";
-                let columnName = relation.substr(0,1).toLowerCase()+relation.substr(1) + "Id";
+                let columnName = relation.substr(0, 1).toLowerCase() + relation.substr(1) + "Id";
                 let columnConfig = {
                     name: columnName,
                     type: MigrationHelper.TYPES.INTEGER,

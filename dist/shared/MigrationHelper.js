@@ -80,10 +80,11 @@ class MigrationHelper {
         let schemaDefinition = modelClass.getSchemaDefinition();
         let tableName = prefix + Helper_1.Helper.toSnakeCase(schemaDefinition.name);
         Object.keys(schemaDefinition.columns).forEach(column => {
-            let columnConfig = {
-                name: column,
-                type: schemaDefinition.columns[column].type
-            };
+            let columnConfig = {};
+            Object.keys(schemaDefinition.columns[column]).forEach(key => {
+                columnConfig[key] = schemaDefinition.columns[column][key];
+            });
+            columnConfig["name"] = column;
             if (schemaDefinition.columns[column].primary) {
                 columnConfig["isPrimary"] = true;
             }
@@ -97,8 +98,11 @@ class MigrationHelper {
                     columnConfig["generationStrategy"] = "increment";
                 }
             }
-            if (columnConfig.type === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
-                columnConfig.type = MigrationHelper.TYPES.TEXT;
+            if (typeof columnConfig["default"] === "string") {
+                columnConfig["default"] = "'" + columnConfig["default"] + "'";
+            }
+            if (columnConfig["type"] === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
+                columnConfig["type"] = MigrationHelper.TYPES.TEXT;
             }
             columns.push(columnConfig);
         });
