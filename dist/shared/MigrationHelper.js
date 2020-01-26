@@ -96,10 +96,19 @@ class MigrationHelper {
                 if (Helper_1.Helper.isNull(modelClass.CAN_BE_SYNCED) || this.isServer() || column === "clientId") {
                     columnConfig["isGenerated"] = true;
                     columnConfig["generationStrategy"] = "increment";
+                    if (!this.isServer()) {
+                        columnConfig["type"] = "INTEGER";
+                    }
                 }
             }
             if (typeof columnConfig["default"] === "string") {
                 columnConfig["default"] = "'" + columnConfig["default"] + "'";
+            }
+            else if (columnConfig["default"] === true) {
+                columnConfig["default"] = 1;
+            }
+            else if (columnConfig["default"] === false) {
+                columnConfig["default"] = 0;
             }
             if (columnConfig["type"] === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
                 columnConfig["type"] = MigrationHelper.TYPES.TEXT;
