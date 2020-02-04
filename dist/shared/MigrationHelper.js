@@ -113,6 +113,9 @@ class MigrationHelper {
             if (columnConfig["type"] === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
                 columnConfig["type"] = MigrationHelper.TYPES.TEXT;
             }
+            if (columnConfig["type"] === MigrationHelper.TYPES.SIMPLE_JSON && !this.isServer()) {
+                columnConfig["type"] = MigrationHelper.TYPES.TEXT;
+            }
             columns.push(columnConfig);
         });
         Object.keys(schemaDefinition.relations).forEach(relation => {

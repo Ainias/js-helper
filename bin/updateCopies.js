@@ -12,6 +12,7 @@ let pathsToProjects = [
     "/home/silas/Projekte/Web/cordova-sites-user-management",
     "/home/silas/Projekte/i9/mbb",
     "/home/silas/Projekte/Web/wordRotator",
+    "/home/silas/Projekte/Web/bible-lexicon",
 
     // "/var/www/i9/mbb",
     // "/home/silas/PhpstormProjects/cordova-sites-user-management",
