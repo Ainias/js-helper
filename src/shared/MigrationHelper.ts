@@ -51,14 +51,14 @@ export class MigrationHelper {
                 {
                     name: "FK_" + name + "_" + fieldOne,
                     columnNames: [fieldOne],
-                    referencedTableName: tableOne,
+                    referencedTableName: tableOne.replace(/([A-Z])/, (match, p1) => "_" + p1.toLowerCase()),
                     referencedColumnNames: ["id"],
                     onDelete: "cascade",
                 },
                 {
                     name: "FK_" + name + "_" + fieldTwo,
                     columnNames: [fieldTwo],
-                    referencedTableName: tableTwo,
+                    referencedTableName: tableTwo.replace(/([A-Z])/, (match, p1) => "_" + p1.toLowerCase()),
                     referencedColumnNames: ["id"],
                     onDelete: "cascade",
                 },
@@ -95,18 +95,16 @@ export class MigrationHelper {
                 if (Helper.isNull(modelClass.CAN_BE_SYNCED) || this.isServer() || column === "clientId") {
                     columnConfig["isGenerated"] = true;
                     columnConfig["generationStrategy"] = "increment" as "increment";
-                    if (!this.isServer()){
+                    if (!this.isServer()) {
                         columnConfig["type"] = "INTEGER";
                     }
                 }
             }
             if (typeof columnConfig["default"] === "string") {
-                columnConfig["default"] = "'"+columnConfig["default"]+"'";
-            }
-            else if (columnConfig["default"] === true){
+                columnConfig["default"] = "'" + columnConfig["default"] + "'";
+            } else if (columnConfig["default"] === true) {
                 columnConfig["default"] = 1;
-            }
-            else if (columnConfig["default"] === false){
+            } else if (columnConfig["default"] === false) {
                 columnConfig["default"] = 0;
             }
 
@@ -159,24 +157,44 @@ export class MigrationHelper {
 
         let schemaDefinition = newModel.getSchemaDefinition();
         let tableName = Helper.toSnakeCase(schemaDefinition.name);
-        let tableNameTemp = tableName + "__temp__";
 
-        let newTable = this.createTableFromModelClass(newModel, "__temp__");
-        // newTable.name = tableNameTemp;
-        tableNameTemp = newTable.name;
-
-        await queryRunner.createTable(newTable);
+        let newTable = this.createTableFromModelClass(newModel);
 
         let table = await queryRunner.getTable(tableName);
+        table.name = "__temp__" + table.name;
+        table.indices.forEach(index => {
+            index.name = "__temp__" + index.name;
+        });
+        table.foreignKeys.forEach(key => {
+            key.name = "__temp__" + key.name;
+            key.columnNames = [key.columnNames[0]];
+            key.referencedColumnNames = [key.referencedColumnNames[0]];
+        });
+
+        await queryRunner.createTable(table);
 
         let names = [];
         table.columns.forEach(column => {
             names.push(column.name);
         });
 
-        await queryRunner.query("INSERT INTO " + tableNameTemp + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + tableName + ";");
+        await queryRunner.query("INSERT INTO " + table.name + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + tableName + ";");
         await queryRunner.query("DROP TABLE " + tableName + ";");
-        await queryRunner.query("ALTER TABLE " + tableNameTemp + " RENAME TO " + tableName + ";");
+
+        await queryRunner.createTable(newTable);
+
+        let newColumnNames = [];
+        newTable.columns.forEach(column => newColumnNames.push(column.name));
+
+        names = [];
+        table.columns.forEach(column => {
+            if (newColumnNames.indexOf(column.name) !== -1) {
+                names.push(column.name);
+            }
+        });
+
+        await queryRunner.query("INSERT INTO " + tableName + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + table.name + ";");
+        await queryRunner.query("DROP TABLE " + table.name + ";");
     }
 }
 
