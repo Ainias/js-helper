@@ -154,7 +154,6 @@ class MigrationHelper {
             let schemaDefinition = newModel.getSchemaDefinition();
             let tableName = Helper_1.Helper.toSnakeCase(schemaDefinition.name);
             let newTable = this.createTableFromModelClass(newModel);
-            let tableNameTemp = newTable.name;
             let table = yield queryRunner.getTable(tableName);
             table.name = "__temp__" + table.name;
             table.indices.forEach(index => {
@@ -165,7 +164,6 @@ class MigrationHelper {
                 key.columnNames = [key.columnNames[0]];
                 key.referencedColumnNames = [key.referencedColumnNames[0]];
             });
-            debugger;
             yield queryRunner.createTable(table);
             let names = [];
             table.columns.forEach(column => {
