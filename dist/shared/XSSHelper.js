@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.XSSHelper = void 0;
 class XSSHelper {
     static escapeHTML(text) {
         if (typeof text !== "string") {

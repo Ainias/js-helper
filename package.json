@@ -7,15 +7,19 @@
     "build": "node bin/build.js &tsc",
     "update packages": "node bin/updateCopies.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Ainias/js-helper.git"
+  },
   "author": "Silas Günther",
   "peerDependencies": {
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.2.24"
   },
   "dependencies": {},
   "main": "dist/shared.js",
   "devDependencies": {
-    "@types/node": "^12.12.14",
-    "typeorm": "^0.2.20",
-    "typescript": "^3.7.2"
+    "@types/node": "^14.0.5",
+    "typeorm": "^0.2.24",
+    "typescript": "^3.9.3"
   }
 }
