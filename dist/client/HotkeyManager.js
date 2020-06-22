@@ -5,6 +5,7 @@ class HotkeyManager {
     constructor() {
         this._keys = {};
         this._callbacks = {};
+        this._lastCallbackId = 0;
         this._active = false;
         this._addListeners();
     }

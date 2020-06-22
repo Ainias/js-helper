@@ -1,7 +1,7 @@
 export declare class HotkeyManager {
     _keys: any;
     _callbacks: any;
-    _lastCallbackId: 0;
+    _lastCallbackId: number;
     _active: boolean;
     constructor();
     _addListeners(): void;

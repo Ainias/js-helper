@@ -2,7 +2,7 @@ export class HotkeyManager {
     _keys: any = {}
     _callbacks: any = {}
 
-    _lastCallbackId: 0;
+    _lastCallbackId = 0;
 
     _active = false;
 
@@ -52,6 +52,4 @@ export class HotkeyManager {
     removeCallback(callbackId){
         delete this._callbacks[callbackId];
     }
-
-
 }
