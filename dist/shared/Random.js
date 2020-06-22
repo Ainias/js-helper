@@ -13,7 +13,7 @@ let Random = /** @class */ (() => {
             return ((t ^ t >>> 14) >>> 0) / 4294967296;
         }
         static getIntRandom(maxValue) {
-            Math.floor(Random.getRandom() * (maxValue + 1));
+            return Math.floor(Random.getRandom() * (maxValue + 1));
         }
     }
     Random._seed = new Date().getTime();

@@ -49,11 +49,11 @@ async function buildEntryPoints(fileOption, target) {
 }
 
 
-buildEntryPoints({
-    input: [
-        path.resolve(process.cwd(), "src/server/"),
-    ],
-}, "./src/server.ts");
+// buildEntryPoints({
+//     input: [
+//         path.resolve(process.cwd(), "src/server/"),
+//     ],
+// }, "./src/server.ts");
 buildEntryPoints({
     input: [
         path.resolve(process.cwd(), "src/client/"),

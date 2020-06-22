@@ -13,6 +13,6 @@ export class Random{
     }
 
     static getIntRandom(maxValue){
-        Math.floor(Random.getRandom() * (maxValue+1));
+        return Math.floor(Random.getRandom() * (maxValue+1));
     }
 }
