@@ -165,6 +165,13 @@ class MigrationHelper {
                 key.columnNames = [key.columnNames[0]];
                 key.referencedColumnNames = [key.referencedColumnNames[0]];
             });
+            if (MigrationHelper.isServer()) {
+                table.columns.forEach(column => {
+                    if (column.default !== null && typeof column.default === "string" && column.default.startsWith("'") && column.default.endsWith("'")) {
+                        column.default = column.default.substring(1, column.default.length - 1);
+                    }
+                });
+            }
             yield queryRunner.createTable(table);
             let names = [];
             table.columns.forEach(column => {

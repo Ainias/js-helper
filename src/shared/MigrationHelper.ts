@@ -171,6 +171,14 @@ export class MigrationHelper {
             key.referencedColumnNames = [key.referencedColumnNames[0]];
         });
 
+        if (MigrationHelper.isServer()) {
+            table.columns.forEach(column => {
+                if (column.default !== null && typeof column.default === "string" && column.default.startsWith("'") && column.default.endsWith("'")) {
+                    column.default = column.default.substring(1, column.default.length - 1);
+                }
+            })
+        }
+
         await queryRunner.createTable(table);
 
         let names = [];
