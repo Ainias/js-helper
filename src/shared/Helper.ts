@@ -289,4 +289,23 @@ export class Helper {
     static toSnakeCase(camelCase){
         return camelCase.replace(/([A-Z])/g, function(find, something, position ){return ((position > 0)?"_":"")+find[0].toLowerCase();});
     }
+
+    static async wait(timeout, result?){
+        return new Promise(r => {
+            setTimeout(() => {
+                r(result);
+            }, timeout);
+        })
+    }
+
+    static async timeout(time, otherPromise, timeoutResult?){
+        return Promise.race([otherPromise, Helper.wait(time).then(() => {
+            if (timeoutResult === undefined){
+                return Promise.reject();
+            }
+            else {
+                return timeoutResult
+            }
+        })])
+    }
 }

@@ -8,6 +8,7 @@ export declare class HotkeyManager {
     activate(): void;
     deactivate(): void;
     addCallback(keys: any, callback: any): void;
+    isKeyPressed(key: any): boolean;
     _checkCallbacks(e: any): void;
     removeCallback(callbackId: any): void;
 }

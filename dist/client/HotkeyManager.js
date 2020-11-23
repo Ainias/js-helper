@@ -11,13 +11,14 @@ class HotkeyManager {
     }
     _addListeners() {
         window.addEventListener("keydown", e => {
-            this._keys[e.key] = true;
+            this._keys[e.key.toLowerCase()] = true;
             if (this._active) {
                 this._checkCallbacks(e);
             }
         });
         window.addEventListener("keyup", e => {
-            this._keys[e.key] = false;
+            console.log("keyUp", e.key, e);
+            this._keys[e.key.toLowerCase()] = false;
         });
     }
     activate() {
@@ -32,6 +33,9 @@ class HotkeyManager {
             keys: keys,
             callback: callback
         };
+    }
+    isKeyPressed(key) {
+        return this._active && this._keys[key] && this._keys[key] === true;
     }
     _checkCallbacks(e) {
         //TODO async forEach?

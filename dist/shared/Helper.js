@@ -262,6 +262,27 @@ class Helper {
     static toSnakeCase(camelCase) {
         return camelCase.replace(/([A-Z])/g, function (find, something, position) { return ((position > 0) ? "_" : "") + find[0].toLowerCase(); });
     }
+    static wait(timeout, result) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise(r => {
+                setTimeout(() => {
+                    r(result);
+                }, timeout);
+            });
+        });
+    }
+    static timeout(time, otherPromise, timeoutResult) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Promise.race([otherPromise, Helper.wait(time).then(() => {
+                    if (timeoutResult === undefined) {
+                        return Promise.reject();
+                    }
+                    else {
+                        return timeoutResult;
+                    }
+                })]);
+        });
+    }
 }
 exports.Helper = Helper;
 //# sourceMappingURL=Helper.js.map

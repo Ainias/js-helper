@@ -111,6 +111,9 @@ class MigrationHelper {
             else if (columnConfig["default"] === false) {
                 columnConfig["default"] = 0;
             }
+            if (columnConfig["type"] === MigrationHelper.TYPES.SIMPLE_JSON) {
+                columnConfig["type"] = MigrationHelper.TYPES.TEXT;
+            }
             if (columnConfig["type"] === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
                 columnConfig["type"] = MigrationHelper.TYPES.TEXT;
             }
@@ -177,7 +180,7 @@ class MigrationHelper {
             table.columns.forEach(column => {
                 names.push(column.name);
             });
-            yield queryRunner.query("INSERT INTO " + table.name + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + tableName + ";");
+            yield queryRunner.query("INSERT INTO " + table.name + "(`" + names.join("`,`") + "`) SELECT `" + names.join("`,`") + "` FROM " + tableName + ";");
             yield queryRunner.query("DROP TABLE " + tableName + ";");
             yield queryRunner.createTable(newTable);
             let newColumnNames = [];
@@ -188,7 +191,7 @@ class MigrationHelper {
                     names.push(column.name);
                 }
             });
-            yield queryRunner.query("INSERT INTO " + tableName + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + table.name + ";");
+            yield queryRunner.query("INSERT INTO " + tableName + "(`" + names.join("`,`") + "`) SELECT `" + names.join("`,`") + "` FROM " + table.name + ";");
             yield queryRunner.query("DROP TABLE " + table.name + ";");
         });
     }

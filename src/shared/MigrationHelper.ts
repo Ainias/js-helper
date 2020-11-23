@@ -108,6 +108,10 @@ export class MigrationHelper {
                 columnConfig["default"] = 0;
             }
 
+            if (columnConfig["type"] === MigrationHelper.TYPES.SIMPLE_JSON) {
+                columnConfig["type"] = MigrationHelper.TYPES.TEXT
+            }
+
             if (columnConfig["type"] === MigrationHelper.TYPES.MEDIUMTEXT && !this.isServer()) {
                 columnConfig["type"] = MigrationHelper.TYPES.TEXT
             }
@@ -186,7 +190,7 @@ export class MigrationHelper {
             names.push(column.name);
         });
 
-        await queryRunner.query("INSERT INTO " + table.name + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + tableName + ";");
+        await queryRunner.query("INSERT INTO " + table.name + "(`" + names.join("`,`") + "`) SELECT `" + names.join("`,`") + "` FROM " + tableName + ";");
         await queryRunner.query("DROP TABLE " + tableName + ";");
 
         await queryRunner.createTable(newTable);
@@ -201,7 +205,7 @@ export class MigrationHelper {
             }
         });
 
-        await queryRunner.query("INSERT INTO " + tableName + "(" + names.join(",") + ") SELECT " + names.join(",") + " FROM " + table.name + ";");
+        await queryRunner.query("INSERT INTO " + tableName + "(`" + names.join("`,`") + "`) SELECT `" + names.join("`,`") + "` FROM " + table.name + ";");
         await queryRunner.query("DROP TABLE " + table.name + ";");
     }
 }

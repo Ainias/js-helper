@@ -84,4 +84,6 @@ export declare class Helper {
     static newPromiseWithResolve(): Promise<unknown>;
     static isMobileApp(): boolean;
     static toSnakeCase(camelCase: any): any;
+    static wait(timeout: any, result?: any): Promise<unknown>;
+    static timeout(time: any, otherPromise: any, timeoutResult?: any): Promise<any>;
 }
