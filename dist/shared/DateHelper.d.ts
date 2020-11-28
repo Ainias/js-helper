@@ -7,5 +7,5 @@ export declare class DateHelper {
      * @param useUTC
      * @returns {*|void|string}
      */
-    static strftime(sFormat: any, date: any, useUTC: any): any;
+    static strftime(sFormat: any, date: any, useUTC?: any): any;
 }
