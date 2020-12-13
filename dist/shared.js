@@ -16,6 +16,7 @@ __exportStar(require("./shared/Helper"), exports);
 __exportStar(require("./shared/JsonHelper"), exports);
 __exportStar(require("./shared/MigrationHelper"), exports);
 __exportStar(require("./shared/Prioritized"), exports);
+__exportStar(require("./shared/PromiseWithHandlers"), exports);
 __exportStar(require("./shared/Random"), exports);
 __exportStar(require("./shared/XSSHelper"), exports);
 //# sourceMappingURL=shared.js.map

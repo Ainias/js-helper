@@ -18,7 +18,6 @@ export class HotkeyManager {
             }
         });
         window.addEventListener("keyup", e => {
-            console.log("keyUp", e.key, e)
             this._keys[e.key.toLowerCase()] = false;
         });
 

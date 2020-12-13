@@ -1,6 +1,8 @@
 import {Helper} from "./Helper";
 
-export class DateHelper{
+export class DateHelper {
+    private static translationCallback: (key: string) => string;
+
     /**
      * Formatiert ein Date-Object nach der Vorlage von der C-Funktion strftime
      *
@@ -37,12 +39,12 @@ export class DateHelper{
                 return ('' + (Math.pow(10, nPad) + nNum)).slice(1);
             };
 
-        return sFormat.replace(/%[a-z]/gi, function (sMatch) {
+        return sFormat.replace(/%[a-z]/gi, (sMatch) => {
             return {
-                '%a': aDaysShort[nDay],
-                '%A': aDays[nDay],
-                '%b': aMonths[nMonth].slice(0, 3),
-                '%B': aMonths[nMonth],
+                '%a': this.translate(aDaysShort[nDay]),
+                '%A': this.translate(aDays[nDay]),
+                '%b': this.translate(aMonths[nMonth].slice(0, 3)),
+                '%B': this.translate(aMonths[nMonth]),
                 '%c': date.toUTCString(),
                 '%C': Math.floor(nYear / 100),
                 '%d': zeroPad(nDate, 2),
@@ -72,5 +74,16 @@ export class DateHelper{
                 '%Z': date.toTimeString().replace(/.+\((.+?)\)$/, '$1')
             }[sMatch] || sMatch;
         });
+    }
+
+    static translate(key) {
+        if (this.translationCallback) {
+            return this.translationCallback(key);
+        }
+        return key;
+    }
+
+    static setTranslationCallback(callback) {
+        this.translationCallback = callback;
     }
 }

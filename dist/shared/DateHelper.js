@@ -27,12 +27,12 @@ class DateHelper {
         }, zeroPad = function (nNum, nPad) {
             return ('' + (Math.pow(10, nPad) + nNum)).slice(1);
         };
-        return sFormat.replace(/%[a-z]/gi, function (sMatch) {
+        return sFormat.replace(/%[a-z]/gi, (sMatch) => {
             return {
-                '%a': aDaysShort[nDay],
-                '%A': aDays[nDay],
-                '%b': aMonths[nMonth].slice(0, 3),
-                '%B': aMonths[nMonth],
+                '%a': this.translate(aDaysShort[nDay]),
+                '%A': this.translate(aDays[nDay]),
+                '%b': this.translate(aMonths[nMonth].slice(0, 3)),
+                '%B': this.translate(aMonths[nMonth]),
                 '%c': date.toUTCString(),
                 '%C': Math.floor(nYear / 100),
                 '%d': zeroPad(nDate, 2),
@@ -62,6 +62,15 @@ class DateHelper {
                 '%Z': date.toTimeString().replace(/.+\((.+?)\)$/, '$1')
             }[sMatch] || sMatch;
         });
+    }
+    static translate(key) {
+        if (this.translationCallback) {
+            return this.translationCallback(key);
+        }
+        return key;
+    }
+    static setTranslationCallback(callback) {
+        this.translationCallback = callback;
     }
 }
 exports.DateHelper = DateHelper;

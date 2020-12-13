@@ -1,3 +1,5 @@
+import {Helper} from "./Helper";
+
 export class Random{
     private static _seed: any = new Date().getTime();
 
@@ -12,7 +14,18 @@ export class Random{
         return ((t ^ t >>> 14) >>> 0) / 4294967296;
     }
 
-    static getIntRandom(maxValue){
+    static getIntRandom(maxValue: number){
         return Math.floor(Random.getRandom() * (maxValue+1));
+    }
+
+    static getStringRandom(numSigns: number, alphabet?: string): string{
+        alphabet = Helper.nonNull(alphabet, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+
+        let random = "";
+        const numAlphabet = alphabet.length-1;
+        for(let i = 0; i < numSigns; i++){
+            random += alphabet[Random.getIntRandom(numAlphabet)];
+        }
+        return random;
     }
 }
