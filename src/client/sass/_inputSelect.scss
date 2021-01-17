@@ -1,0 +1,64 @@
+.input-select-container {
+  position: relative;
+
+  .input-select-options {
+    display: none;
+    position: fixed;
+    background: white;
+    z-index: 1;
+
+    border: 1px solid black;
+    border-top: 0px solid #747474;
+
+    .input-select-option {
+      display: block;
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
+
+      &:hover {
+        background: antiquewhite;
+      }
+    }
+  }
+
+  .input-select-flex {
+    display: flex;
+    border-bottom: 1px solid #747474;
+    .input-select-selected-options {
+      .input-select-option {
+        display: inline-block;
+        cursor: pointer;
+        padding: 0.1rem 0.4rem;
+        background: #8e8e8e;
+        border-radius: 50px;
+        margin-left: 0.2rem;
+        &:first-child{
+          margin-left: 0;
+        }
+        &:hover {
+          background: #aaaaaa;
+        }
+
+        &:after{
+          content: "X";
+          padding-left: 0.2rem;
+          margin-left: 0.2rem;
+          border-left: 1px solid #2a2a2a;
+        }
+      }
+    }
+
+    .input-select-input {
+      flex: 1;
+      display: inline-block;
+      margin: 0;
+      border: 0
+    }
+  }
+
+  &:focus, &:focus-within, &:hover {
+    .input-select-options {
+      display: block;
+    }
+  }
+}

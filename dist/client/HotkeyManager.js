@@ -7,7 +7,11 @@ class HotkeyManager {
         this._callbacks = {};
         this._lastCallbackId = 0;
         this._active = false;
+        this.mousePosition = null;
         this._addListeners();
+    }
+    getMousePosition() {
+        return this.mousePosition;
     }
     _addListeners() {
         window.addEventListener("keydown", e => {
@@ -18,6 +22,9 @@ class HotkeyManager {
         });
         window.addEventListener("keyup", e => {
             this._keys[e.key.toLowerCase()] = false;
+        });
+        document.addEventListener("mousemove", e => {
+            this.mousePosition = { x: e.clientX, y: e.clientY };
         });
     }
     activate() {

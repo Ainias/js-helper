@@ -13,4 +13,5 @@ export declare class ViewHelper {
      * @returns {*}
      */
     static moveChildren(from: any, to: any): any;
+    static insertAfter(newChild: HTMLElement, referenceChild: HTMLElement): boolean;
 }

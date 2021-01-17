@@ -3,7 +3,12 @@ export declare class HotkeyManager {
     _callbacks: any;
     _lastCallbackId: number;
     _active: boolean;
+    private mousePosition;
     constructor();
+    getMousePosition(): {
+        x: number;
+        y: number;
+    };
     _addListeners(): void;
     activate(): void;
     deactivate(): void;

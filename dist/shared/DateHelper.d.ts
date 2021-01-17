@@ -8,7 +8,7 @@ export declare class DateHelper {
      * @param useUTC
      * @returns {*|void|string}
      */
-    static strftime(sFormat: any, date: any, useUTC?: any): any;
+    static strftime(sFormat: string, date?: Date, useUTC?: boolean): string;
     static translate(key: any): any;
     static setTranslationCallback(callback: any): void;
 }

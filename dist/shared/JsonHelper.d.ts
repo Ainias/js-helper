@@ -7,4 +7,17 @@ export declare class JsonHelper {
      * @returns {*}
      */
     static deepCopy(obj: any): any;
+    static deepAssign(...objects: any[]): {};
+    static getDiff(a: any, b: any): {
+        changed: {};
+        added: {};
+        removed: any[];
+    } | {
+        value: any;
+    };
+    static applyDiff(obj: any, diff: {
+        changed: any;
+        added: any;
+        removed: string[];
+    }): any;
 }

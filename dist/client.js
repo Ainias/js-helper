@@ -11,5 +11,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./client/HotkeyManager"), exports);
+__exportStar(require("./client/InputSelect"), exports);
 __exportStar(require("./client/ViewHelper"), exports);
 //# sourceMappingURL=client.js.map

@@ -1,4 +1,5 @@
 import {Helper} from "./Helper";
+import {type} from "os";
 
 export class JsonHelper {
     static deepEqual(a, b) {
@@ -6,7 +7,7 @@ export class JsonHelper {
             return true;
         }
 
-        if (a === null || b === null){
+        if (a === null || b === null) {
             return false;
         }
 
@@ -23,7 +24,7 @@ export class JsonHelper {
         }
 
         // object deep copy
-        if (typeof a === "object" && typeof b === "object"){
+        if (typeof a === "object" && typeof b === "object") {
             let aKeys = Object.keys(a);
             let bKeys = Object.keys(b);
 
@@ -67,5 +68,97 @@ export class JsonHelper {
             cloneO[i] = JsonHelper.deepCopy(obj[i]);
         }
         return cloneO;
+    }
+
+    static deepAssign(...objects) {
+        if (objects.length > 0 && Array.isArray(objects)) {
+            const result = [];
+            objects.forEach(arr => result.push(...arr));
+            return result;
+        }
+
+        const resultObj = {};
+        objects.forEach(obj => {
+            for (let i in obj) {
+                if (resultObj[i] && typeof obj[i] === "object" && typeof resultObj[i] === "object") {
+                    resultObj[i] = JsonHelper.deepAssign(resultObj[i], obj[i]);
+                } else {
+                    resultObj[i] = obj[i];
+                }
+            }
+        });
+        return resultObj;
+    }
+
+    static getDiff(a, b) {
+        const result = {
+            changed: {},
+            added: {},
+            removed: [],
+        }
+
+        // if (Array.isArray(a) && Array.isArray(b)){
+        //     const lengthA = a.length;
+        //     const lengthB = b.length;
+        //
+        //     const minLength = Math.min(lengthA, lengthB);
+        //     for (let i = 0; i < minLength; i++){
+        //         const
+        //     }
+        // }
+        if ((typeof a !== "object" || typeof b !== "object")
+            && (!Array.isArray(a) && !Array.isArray(b))) {
+            if (a === b) {
+                return null;
+            } else {
+                return {value: b};
+            }
+        }
+
+        let hasChanged = false;
+        let hasRemoved = false;
+        let hasAdded = false;
+
+        for (let i in a) {
+            if (i in b) {
+                const newVal = JsonHelper.getDiff(a[i], b[i]);
+                if (newVal !== null) {
+                    result.changed[i] = newVal;
+                    hasChanged = true;
+                }
+            } else {
+                result.removed.push(i);
+                hasRemoved = true;
+            }
+        }
+        for (let i in b) {
+            if (!(i in a)) {
+                result.added[i] = b[i];
+                hasAdded = true;
+            }
+        }
+
+        if (hasRemoved || hasAdded || hasChanged) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    static applyDiff(obj, diff: { changed: any, added: any, removed: string[] }) {
+        if (!Array.isArray(diff.removed)) {
+            debugger;
+        }
+
+        Object.keys(diff.changed).forEach(key => {
+            if ("value" in diff.changed[key]) {
+                obj[key] = diff.changed[key].value;
+            } else {
+                obj[key] = JsonHelper.applyDiff(obj[key], diff.changed[key]);
+            }
+        });
+        diff.removed.forEach(rem => delete obj[rem]);
+        Object.keys(diff.added).forEach(key => obj[key] = diff.added[key]);
+        return obj;
     }
 }
