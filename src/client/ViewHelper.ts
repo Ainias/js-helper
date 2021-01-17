@@ -34,4 +34,18 @@ export class ViewHelper{
         });
         return to;
     }
+
+    static insertAfter(newChild: HTMLElement, referenceChild: HTMLElement){
+        const parent = referenceChild.parentNode;
+        if (parent){
+            if (parent.lastChild === referenceChild){
+                parent.appendChild(newChild);
+            }
+            else {
+                parent.insertBefore(newChild, referenceChild.nextSibling);
+            }
+            return true;
+        }
+        return false;
+    }
 }

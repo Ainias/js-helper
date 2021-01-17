@@ -6,8 +6,14 @@ export class HotkeyManager {
 
     _active = false;
 
+    private mousePosition: {x: number, y: number} =  null;
+
     constructor() {
         this._addListeners();
+    }
+
+    getMousePosition(){
+        return this.mousePosition;
     }
 
     _addListeners(){
@@ -20,7 +26,9 @@ export class HotkeyManager {
         window.addEventListener("keyup", e => {
             this._keys[e.key.toLowerCase()] = false;
         });
-
+        document.addEventListener("mousemove", e => {
+            this.mousePosition = {x: e.clientX, y: e.clientY};
+        })
     }
 
     activate(){
