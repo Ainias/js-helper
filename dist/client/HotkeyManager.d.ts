@@ -3,8 +3,10 @@ export declare class HotkeyManager {
     _callbacks: any;
     _lastCallbackId: number;
     _active: boolean;
+    private ignoreFormElements;
     private mousePosition;
     constructor();
+    private static isFormElement;
     getMousePosition(): {
         x: number;
         y: number;

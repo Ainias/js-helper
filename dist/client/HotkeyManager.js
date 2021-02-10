@@ -9,19 +9,29 @@ class HotkeyManager {
         this._active = false;
         this.mousePosition = null;
         this._addListeners();
+        this.ignoreFormElements = false;
+    }
+    static isFormElement(element) {
+        return element instanceof HTMLInputElement
+            || element instanceof HTMLSelectElement
+            || element instanceof HTMLTextAreaElement;
     }
     getMousePosition() {
         return this.mousePosition;
     }
     _addListeners() {
         window.addEventListener("keydown", e => {
-            this._keys[e.key.toLowerCase()] = true;
-            if (this._active) {
-                this._checkCallbacks(e);
+            if (this.ignoreFormElements || !HotkeyManager.isFormElement(e.target)) {
+                this._keys[e.key.toLowerCase()] = true;
+                if (this._active) {
+                    this._checkCallbacks(e);
+                }
             }
         });
         window.addEventListener("keyup", e => {
-            this._keys[e.key.toLowerCase()] = false;
+            if (e.key) {
+                this._keys[e.key.toLowerCase()] = false;
+            }
         });
         document.addEventListener("mousemove", e => {
             this.mousePosition = { x: e.clientX, y: e.clientY };
