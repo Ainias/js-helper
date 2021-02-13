@@ -170,7 +170,7 @@ class MigrationHelper {
             });
             if (MigrationHelper.isServer()) {
                 table.columns.forEach(column => {
-                    if (column.default !== null && typeof column.default === "string" && column.default.startsWith("'") && column.default.endsWith("'")) {
+                    if (column.default !== null && typeof column.default === "string" && column.default.startsWith("'") && column.default.endsWith("'") && (column.type !== "varchar" || column.default.startsWith("''"))) {
                         column.default = column.default.substring(1, column.default.length - 1);
                     }
                 });
