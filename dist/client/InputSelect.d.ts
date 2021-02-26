@@ -25,4 +25,7 @@ export declare class InputSelect {
         selected: boolean;
     }[];
     getSelectedValues(): string[];
+    updateSelection(selection: {
+        [value: string]: boolean;
+    }): void;
 }

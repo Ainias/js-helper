@@ -67,6 +67,7 @@ export class InputSelect {
 
         flexContainer.appendChild(this.selectedOptionsContainer);
         flexContainer.appendChild(this.inputElement);
+        this.inputElement.addEventListener("input", () => this.updateOptions())
 
         if ("ResizeObserver" in window) {
             // @ts-ignore
@@ -78,7 +79,25 @@ export class InputSelect {
             resizeObserver.observe(this.container);
         }
 
-        this.inputElement.addEventListener("input", () => this.updateOptions())
+        // if ("IntersectionObserver" in window) {
+        //     const intersectionOptions = {
+        //         root: this.optionsContainer,
+        //         rootMargin: "20px",
+        //         threshold: 0.01
+        //     }
+        //     const intersectionObserver = new IntersectionObserver((entries) => {
+        //         entries.forEach(entry => console.log("is intersecting", entry.isIntersecting));
+        //         // console.log("entries", entries);
+        //     }, intersectionOptions);
+        //     intersectionObserver.observe(flexContainer);
+        // }
+
+        window.addEventListener("scroll", () => console.log("scrolling"));
+        this.container.addEventListener("click", () => {
+            const rect = this.container.getBoundingClientRect();
+            this.optionsContainer.style.top=(rect.top + rect.height)+"px";
+        });
+
         this.updateOptions();
     }
 
@@ -104,6 +123,7 @@ export class InputSelect {
                 e.preventDefault();
                 e.cancelBubble = true;
                 this.toggle(o.value);
+                this.inputElement.focus();
             })
         });
     }
@@ -119,15 +139,25 @@ export class InputSelect {
         }
     }
 
-    getOptions(){
+    getOptions() {
         return Array.from(this.options.values());
     }
 
-    getSelectedOptions(){
+    getSelectedOptions() {
         return this.getOptions().filter(o => o.selected);
     }
 
-    getSelectedValues(){
+    getSelectedValues() {
         return this.getSelectedOptions().map(o => o.value);
+    }
+
+    updateSelection(selection: { [value: string]: boolean }) {
+        Object.keys(selection).forEach(value => {
+            const option = this.options.get(value);
+            if (option) {
+                option.selected = selection[value];
+            }
+        });
+        this.updateOptions();
     }
 }

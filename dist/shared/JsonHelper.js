@@ -146,8 +146,15 @@ class JsonHelper {
                 obj[key] = JsonHelper.applyDiff(obj[key], diff.changed[key]);
             }
         });
-        diff.removed.forEach(rem => delete obj[rem]);
         Object.keys(diff.added).forEach(key => obj[key] = diff.added[key]);
+        if (Array.isArray(obj)) {
+            diff.removed.sort((a, b) => (parseInt(b) - parseInt(a))).forEach(index => {
+                obj.splice(parseInt(index), 1);
+            });
+        }
+        else {
+            diff.removed.forEach(rem => delete obj[rem]);
+        }
         return obj;
     }
 }

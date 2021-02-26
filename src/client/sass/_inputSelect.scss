@@ -56,9 +56,12 @@
     }
   }
 
-  &:focus, &:focus-within, &:hover {
+  &:focus, &:focus-within {
     .input-select-options {
       display: block;
     }
+  }
+  .input-select-options:hover {
+    display: block;
   }
 }

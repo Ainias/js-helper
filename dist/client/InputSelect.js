@@ -47,6 +47,7 @@ class InputSelect {
         this.container.appendChild(this.optionsContainer);
         flexContainer.appendChild(this.selectedOptionsContainer);
         flexContainer.appendChild(this.inputElement);
+        this.inputElement.addEventListener("input", () => this.updateOptions());
         if ("ResizeObserver" in window) {
             // @ts-ignore
             const resizeObserver = new ResizeObserver(entries => {
@@ -56,7 +57,23 @@ class InputSelect {
             });
             resizeObserver.observe(this.container);
         }
-        this.inputElement.addEventListener("input", () => this.updateOptions());
+        // if ("IntersectionObserver" in window) {
+        //     const intersectionOptions = {
+        //         root: this.optionsContainer,
+        //         rootMargin: "20px",
+        //         threshold: 0.01
+        //     }
+        //     const intersectionObserver = new IntersectionObserver((entries) => {
+        //         entries.forEach(entry => console.log("is intersecting", entry.isIntersecting));
+        //         // console.log("entries", entries);
+        //     }, intersectionOptions);
+        //     intersectionObserver.observe(flexContainer);
+        // }
+        window.addEventListener("scroll", () => console.log("scrolling"));
+        this.container.addEventListener("click", () => {
+            const rect = this.container.getBoundingClientRect();
+            this.optionsContainer.style.top = (rect.top + rect.height) + "px";
+        });
         this.updateOptions();
     }
     updateOptions() {
@@ -79,6 +96,7 @@ class InputSelect {
                 e.preventDefault();
                 e.cancelBubble = true;
                 this.toggle(o.value);
+                this.inputElement.focus();
             });
         });
     }
@@ -100,6 +118,15 @@ class InputSelect {
     }
     getSelectedValues() {
         return this.getSelectedOptions().map(o => o.value);
+    }
+    updateSelection(selection) {
+        Object.keys(selection).forEach(value => {
+            const option = this.options.get(value);
+            if (option) {
+                option.selected = selection[value];
+            }
+        });
+        this.updateOptions();
     }
 }
 exports.InputSelect = InputSelect;
