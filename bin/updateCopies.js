@@ -13,7 +13,7 @@ let pathsToProjects = [
     "/home/silas/Projekte/web/smd-mail",
     // "/home/silas/Projekte/Web/stories",
     // "/home/silas/Projekte/Web/cordova-sites",
-    // "/home/silas/Projekte/Web/cordova-sites-easy-sync",
+    "/home/silas/Projekte/web/cordova-sites-easy-sync",
     // "/home/silas/Projekte/Web/cordova-sites-user-management",
     "/home/silas/Projekte/i9/mbb",
     // "/home/silas/Projekte/Web/bible-lexicon",

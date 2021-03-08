@@ -3,6 +3,10 @@ import {Helper} from "./Helper";
 export class DateHelper {
     private static translationCallback: (key: string) => string;
 
+    static FORMAT = {
+        ISO_TIME: "%Y-%m-%dT%H:%M%S"
+    }
+
     /**
      * Formatiert ein Date-Object nach der Vorlage von der C-Funktion strftime
      *

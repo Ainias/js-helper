@@ -1,5 +1,8 @@
 export declare class DateHelper {
     private static translationCallback;
+    static FORMAT: {
+        ISO_TIME: string;
+    };
     /**
      * Formatiert ein Date-Object nach der Vorlage von der C-Funktion strftime
      *
