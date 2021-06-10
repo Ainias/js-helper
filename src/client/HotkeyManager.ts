@@ -52,7 +52,7 @@ export class HotkeyManager {
         this._active = false;
     }
 
-    addCallback(keys, callback) {
+    addCallback(keys: string[], callback: (e) => void) {
         this._lastCallbackId++;
         this._callbacks[this._lastCallbackId] = {
             keys: keys,

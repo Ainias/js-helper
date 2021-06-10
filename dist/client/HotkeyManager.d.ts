@@ -14,7 +14,7 @@ export declare class HotkeyManager {
     _addListeners(): void;
     activate(): void;
     deactivate(): void;
-    addCallback(keys: any, callback: any): void;
+    addCallback(keys: string[], callback: (e: any) => void): void;
     isKeyPressed(key: any): boolean;
     _checkCallbacks(e: any): void;
     removeCallback(callbackId: any): void;
