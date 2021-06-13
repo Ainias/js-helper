@@ -14,5 +14,6 @@ __exportStar(require("./client/Dragger/DragHelper"), exports);
 __exportStar(require("./client/Dragger/DraggedElement"), exports);
 __exportStar(require("./client/HotkeyManager"), exports);
 __exportStar(require("./client/InputSelect"), exports);
+__exportStar(require("./client/MatomoHelper"), exports);
 __exportStar(require("./client/ViewHelper"), exports);
 //# sourceMappingURL=client.js.map
