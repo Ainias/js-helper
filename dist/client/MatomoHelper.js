@@ -10,7 +10,7 @@ class MatomoHelper {
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function () {
-            var u = "//" + url + "/";
+            var u = url + "/";
             _paq.push(['setTrackerUrl', u + scriptName + '.php']);
             _paq.push(['setSiteId', siteId]);
             var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
