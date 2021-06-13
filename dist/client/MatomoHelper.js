@@ -7,8 +7,8 @@ class MatomoHelper {
         scriptName = Helper_1.Helper.nonNull(scriptName, "matomo");
         let _paq = window["_paq"] = window["_paq"] || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        // _paq.push(['trackPageView']);
-        // _paq.push(['enableLinkTracking']);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
         (function () {
             var u = "//" + url + "/";
             _paq.push(['setTrackerUrl', u + scriptName + '.php']);
