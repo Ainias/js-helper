@@ -2,21 +2,23 @@
  * Eine Klasse mit häufig genutzten, nützlichen Funktionen
  */
 import {JsonHelper} from "./JsonHelper";
-
-declare let device: any;
+import {ArrayHelper} from "./ArrayHelper";
+import {PromiseWithHandlers} from "./Promises/PromiseWithHandlers";
+import {ObjectHelper} from "./ObjectHelper";
 
 export class Helper {
     /**
      * Testet, ob eine Variable null oder Undefined ist
      *
      * @param variable
+     * @param args
      * @returns {boolean}
      */
     static isNull(variable, ...args) {
         return Helper.isAllNull(...arguments);
     }
 
-    static isAllNull(...args){
+    static isAllNull(...args) {
         for (let i = 0; i < args.length; i++) {
             if (!(args[i] === null || args[i] === undefined)) {
                 return false;
@@ -25,7 +27,7 @@ export class Helper {
         return true;
     }
 
-    static isAtLeastOneNull(...args){
+    static isAtLeastOneNull(...args) {
         return !Helper.isAllNull(...args);
     }
 
@@ -33,13 +35,14 @@ export class Helper {
      * Testet, ob eine Variable nicht (null oder undefined) ist
      *
      * @param variable
+     * @param args
      * @returns {boolean}
      */
     static isNotNull(variable, ...args) {
         return Helper.isAllNotNull(...arguments);
     }
 
-    static isAllNotNull(...args){
+    static isAllNotNull(...args) {
         for (let i = 0; i < args.length; i++) {
             if ((args[i] === null || args[i] === undefined)) {
                 return false;
@@ -48,10 +51,13 @@ export class Helper {
         return true;
     }
 
-    static isAtLeastOneNotNull(...args){
+    static isAtLeastOneNotNull(...args) {
         return !Helper.isAllNull(...args);
     }
 
+    static delay<ResultType>(duration: number, args?: ResultType): Promise<ResultType>{
+        return new Promise(resolve => setTimeout(() => resolve(args), duration));
+    }
 
     /**
      * Gibt den ersten übergebenen Wert, der nicht (null oder undefined) ist, zurück
@@ -68,26 +74,6 @@ export class Helper {
             }
         }
         return null;
-    }
-
-    /**
-     * Testet, ob der übergebene Index am Objekt gesetzt ist. Werden mehrere Indexes übergeben, so wird getestet,
-     * ob die "Index-Kette" gesetzt ist.
-     * Bsp.:
-     *  Helper.isSet({"index1":{"index2":value}}, "index1", "index2") ist wahr
-     *
-     * @param object
-     * @param indexes
-     * @returns {*}
-     */
-    static isSet(object, ...indexes) {
-        if (Helper.isNotNull(object)) {
-            if (indexes.length === 0) {
-                return true;
-            }
-            return (Helper.isSet.apply(null, [object[indexes[0]]].concat(indexes.slice(1))));
-        }
-        return false;
     }
 
     /**
@@ -110,22 +96,12 @@ export class Helper {
         return !Helper.empty(value);
     }
 
-    static arrayToObject(array, indexFunction){
-        let obj = {};
+    static arrayToObject<ArrayType = any>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string|number) {
+        let obj: {[key in string | number]: ArrayType} = {};
         array.forEach(val => {
             obj[indexFunction(val)] = val;
         });
         return obj;
-    }
-
-    /**
-     * Deepcopies JSON
-     *
-     * @param obj
-     * @returns {*}
-     */
-    static cloneJson(obj) {
-       return JsonHelper.deepCopy(obj)
     }
 
     /**
@@ -142,51 +118,11 @@ export class Helper {
         return formData;
     }
 
-    static shuffleArray(array) {
-        let currentIndex = array.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-    }
-
     static padZero(n, width?, z?) {
         z = Helper.nonNull(z, '0');
         n = n + '';
         width = Helper.nonNull(width, 1);
         return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-    }
-
-    static deepEqual(a, b) {
-        if (a === b) {
-            return true;
-        }
-
-        if (typeof a === "object" && typeof b === "object") {
-            let keysOfB = Object.keys(b);
-            let childrenDeepEqual = Object.keys(a).every((key) => {
-                let index = keysOfB.indexOf(key);
-                if (index < 0) {
-                    return false;
-                }
-
-                keysOfB.splice(index, 1);
-                return Helper.deepEqual(a[key], b[key]);
-            });
-            return (childrenDeepEqual && keysOfB.length === 0);
-        }
-        return false;
     }
 
     //Ältere evtl nützliche Funktionen
@@ -214,83 +150,25 @@ export class Helper {
         return text;
     }
 
-    /**
-     * Inverts the key-Values for an object
-     * @param obj
-     * @return {*}
-     */
-    static invertKeyValues(obj) {
-        let new_obj = {};
-
-        for (let prop in obj) {
-            if (obj.hasOwnProperty(prop)) {
-                new_obj[obj[prop]] = prop;
-            }
-        }
-
-        return new_obj;
-    }
-
-    static async asyncForEach(array, callback, runAsyncronous?) {
-        runAsyncronous = Helper.nonNull(runAsyncronous, false);
-
-        let validPromises = [];
-        for (let i = 0; i < array.length; i++) {
-            let index = i;
-            let currentPromise = Promise.resolve(callback(array[index], index, array));
-            if (!runAsyncronous) {
-                await currentPromise;
-            }
-            validPromises.push(currentPromise);
-        }
-        return Promise.all(validPromises);
-    }
-
     static escapeRegExp(str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
     }
 
-    static objectForEach(object, callback) {
-        Object.keys(object).forEach(key => {
-            callback(object[key], key, object);
-        });
-    }
-
-    static toArray(object) {
-        let res = [];
-        for (let k in object) {
-            res.push(object[k]);
-        }
-        return res;
-    }
-
-    static imageUrlIsEmpty(url){
+    static imageUrlIsEmpty(url) {
         return (Helper.isNull(url) || url.trim() === "" || url.trim() === "data:")
     }
 
-    static newPromiseWithResolve() {
-        let resolver = null;
-        let rejecter = null;
+    static isMobileApp() {
+        return (typeof window["device"] !== "undefined" && window["device"].platform !== "browser")
+    }
 
-        let promise = new Promise((resolve, reject) => {
-            resolver = resolve;
-            rejecter = reject;
+    static toSnakeCase(camelCase) {
+        return camelCase.replace(/([A-Z])/g, function (find, something, position) {
+            return ((position > 0) ? "_" : "") + find[0].toLowerCase();
         });
-        promise["resolve"] = resolver;
-        promise["reject"] = rejecter;
-
-        return promise;
     }
 
-    static isMobileApp(){
-        return (typeof device !== "undefined" && device.platform !== "browser")
-    }
-
-    static toSnakeCase(camelCase){
-        return camelCase.replace(/([A-Z])/g, function(find, something, position ){return ((position > 0)?"_":"")+find[0].toLowerCase();});
-    }
-
-    static async wait(timeout, result?){
+    static async wait(timeout, result?) {
         return new Promise(r => {
             setTimeout(() => {
                 r(result);
@@ -298,14 +176,105 @@ export class Helper {
         })
     }
 
-    static async timeout(time, otherPromise, timeoutResult?){
+    static async timeout(time, otherPromise, timeoutResult?) {
         return Promise.race([otherPromise, Helper.wait(time).then(() => {
-            if (timeoutResult === undefined){
+            if (timeoutResult === undefined) {
                 return Promise.reject();
-            }
-            else {
+            } else {
                 return timeoutResult
             }
         })])
     }
+
+    static execNonThrow(fn: (...any: any) => any){
+        return (...args) => {
+            try {
+                const res = fn(...args);
+                if (res instanceof Promise){
+                    res.catch(e => console.error(e));
+                }
+                return res;
+            }
+            catch(e){
+                console.error(e);
+            }
+        }
+    }
+
+    /** @deprecated Use ArrayHelper.shuffle instead */
+    static shuffleArray(array) {
+        return ArrayHelper.shuffle(array);
+    }
+
+
+    /** @deprecated use ArrayHelper.reverseForEach instead */
+    static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any){
+        return ArrayHelper.reverseForEach(array, callback);
+    }
+
+    /** @deprecated use ArrayHelper.asyncForEach instead */
+    static async asyncForEach(array, callback, runAsynchronous?) {
+        return ArrayHelper.asyncForEach(array, callback, runAsynchronous)
+    }
+
+
+    /** @deprecated use ObjectHelper.objectForEach instead */
+    static objectForEach(object, callback) {
+        return ObjectHelper.objectForEach(object, callback);
+    }
+
+    /** @deprecated use ObjectHelper.toArray instead */
+    static toArray(object) {
+        return ObjectHelper.toArray(object)
+    }
+
+    /** @deprecated Use ObjectHelper.deepEqual instead */
+    static deepEqual(a, b) {
+        return ObjectHelper.deepEqual(a, b);
+    }
+
+    /**
+     * @deprecated Use ObjectHelper.invertKeyValues instead
+     *
+     * Inverts the key-Values for an object
+     * @param obj
+     * @return {*}
+     */
+    static invertKeyValues(obj) {
+        return ObjectHelper.invertKeyValues(obj);
+    }
+
+    /**
+     * @deprecated Use ObjectHelper.isSet instead
+     *
+     * Testet, ob der übergebene Index am Objekt gesetzt ist. Werden mehrere Indexes übergeben, so wird getestet,
+     * ob die "Index-Kette" gesetzt ist.
+     * Bsp.:
+     *  Helper.isSet({"index1":{"index2":value}}, "index1", "index2") ist wahr
+     *
+     * @param object
+     * @param indexes
+     * @returns {*}
+     */
+    static isSet(object, ...indexes) {
+        return ObjectHelper.isSet(object, ...indexes);
+    }
+
+    /** @deprecated use PromiseWithHandlers instead */
+    static newPromiseWithResolve() {
+        return new PromiseWithHandlers();
+    }
+
+    /**
+     * @deprecated Use JsonHelper.deepCopy instead
+     *
+     * Deepcopies JSON
+     *
+     * @param obj
+     * @returns {*}
+     */
+    static cloneJson(obj) {
+        return JsonHelper.deepCopy(obj)
+    }
+
 }

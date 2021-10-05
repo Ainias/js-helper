@@ -72,9 +72,29 @@ class DateHelper {
     static setTranslationCallback(callback) {
         this.translationCallback = callback;
     }
+    static duration(timeInSeconds, locale = undefined) {
+        const nonPaddedIntl = Intl.NumberFormat(locale, { minimumIntegerDigits: 1 });
+        const paddedIntl = Intl.NumberFormat(locale, { minimumIntegerDigits: 2 });
+        const [delimiter] = new Date().toLocaleTimeString('en-us').match(/\b[:.]\b/);
+        const hours = Math.floor(timeInSeconds / 3600);
+        const minutes = Math.floor(timeInSeconds / 60) % 60;
+        const seconds = timeInSeconds % 60;
+        const indexToPad = hours ? 0 : 1;
+        return [hours, minutes, seconds]
+            .map((val, i) => {
+            return (val < 10 && i > indexToPad) ? paddedIntl.format(val) : nonPaddedIntl.format(val);
+        })
+            .filter((val, i) => {
+            if (i === 0) {
+                return !(val === '00' || val === '0');
+            }
+            return true;
+        })
+            .join(delimiter);
+    }
 }
 exports.DateHelper = DateHelper;
 DateHelper.FORMAT = {
-    ISO_TIME: "%Y-%m-%dT%H:%M%S"
+    ISO_TIME: "%Y-%m-%dT%H:%M:%S"
 };
 //# sourceMappingURL=DateHelper.js.map

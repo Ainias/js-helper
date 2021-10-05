@@ -10,13 +10,15 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(require("./shared/ArrayHelper"), exports);
 __exportStar(require("./shared/Counter"), exports);
 __exportStar(require("./shared/DateHelper"), exports);
 __exportStar(require("./shared/Helper"), exports);
 __exportStar(require("./shared/JsonHelper"), exports);
 __exportStar(require("./shared/MigrationHelper"), exports);
+__exportStar(require("./shared/ObjectHelper"), exports);
 __exportStar(require("./shared/Prioritized"), exports);
-__exportStar(require("./shared/PromiseWithHandlers"), exports);
+__exportStar(require("./shared/Promises/PromiseWithHandlers"), exports);
 __exportStar(require("./shared/Random"), exports);
 __exportStar(require("./shared/XSSHelper"), exports);
 //# sourceMappingURL=shared.js.map

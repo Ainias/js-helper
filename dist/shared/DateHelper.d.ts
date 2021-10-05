@@ -14,4 +14,5 @@ export declare class DateHelper {
     static strftime(sFormat: string, date?: Date, useUTC?: boolean): string;
     static translate(key: any): any;
     static setTranslationCallback(callback: any): void;
+    static duration(timeInSeconds: any, locale?: undefined | string): string;
 }
