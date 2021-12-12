@@ -1,5 +1,4 @@
 import {Helper} from "./Helper";
-import {type} from "os";
 
 export class JsonHelper {
     static deepEqual(a, b) {
@@ -43,7 +42,7 @@ export class JsonHelper {
      * @param obj
      * @returns {*}
      */
-    static deepCopy(obj) {
+    static deepCopy<T>(obj: T): T {
         // https://stackoverflow.com/questions/4120475/how-to-create-and-clone-a-json-object/17502990#17502990
         let i;
 
@@ -57,17 +56,17 @@ export class JsonHelper {
             for (i = 0; i < obj.length; ++i) {
                 cloneA[i] = JsonHelper.deepCopy(obj[i]);
             }
-            return cloneA;
+            return cloneA as unknown as T;
         }
         if (obj instanceof Date) {
-            return new Date(obj.getTime());
+            return new Date(obj.getTime()) as unknown as T;
         }
         // object deep copy
         let cloneO = {};
         for (i in obj) {
             cloneO[i] = JsonHelper.deepCopy(obj[i]);
         }
-        return cloneO;
+        return cloneO as T;
     }
 
     static deepAssign(...objects) {

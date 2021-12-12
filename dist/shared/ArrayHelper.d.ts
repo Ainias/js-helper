@@ -4,6 +4,7 @@ export declare class ArrayHelper {
     static reverseSome<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean): boolean;
     static reverseEvery<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean): boolean;
     static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any): void;
-    static asyncForEach(array: any, callback: any, runAsynchronous?: any): Promise<any[]>;
-    static shuffle(array: any): any;
+    static asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean): Promise<any[]>;
+    static shuffle<Type>(array: Type[]): Type[];
+    static rotate<T>(array: T[], index: number): T[];
 }

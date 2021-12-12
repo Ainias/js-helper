@@ -6,7 +6,7 @@ export declare class JsonHelper {
      * @param obj
      * @returns {*}
      */
-    static deepCopy(obj: any): any;
+    static deepCopy<T>(obj: T): T;
     static deepAssign(...objects: any[]): {};
     static getDiff(a: any, b: any): {
         changed: {};

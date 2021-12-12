@@ -1,50 +1,50 @@
 import {Helper} from "./Helper";
 
-export class ArrayHelper{
+export class ArrayHelper {
 
-    static reverseFind<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean){
-        for (let i = array.length-1; i >= 0; i--){
-            if (callback(array[i], i)){
+    static reverseFind<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean) {
+        for (let i = array.length - 1; i >= 0; i--) {
+            if (callback(array[i], i)) {
                 return array[i];
             }
         }
         return undefined;
     }
 
-    static reverseIndexOf<ArrayType = any>(array: ArrayType[], element: ArrayType, fromIndex: number = array.length-1){
-        for (let i = Math.min(fromIndex, array.length-1); i >= 0; i--){
-            if (array[i] === element){
+    static reverseIndexOf<ArrayType = any>(array: ArrayType[], element: ArrayType, fromIndex: number = array.length - 1) {
+        for (let i = Math.min(fromIndex, array.length - 1); i >= 0; i--) {
+            if (array[i] === element) {
                 return i;
             }
         }
         return -1;
     }
 
-    static reverseSome<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean){
-        for (let i = array.length-1; i >= 0; i--){
-            if (callback(array[i], i)){
+    static reverseSome<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean) {
+        for (let i = array.length - 1; i >= 0; i--) {
+            if (callback(array[i], i)) {
                 return true;
             }
         }
         return false;
     }
 
-    static reverseEvery<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean){
-        for (let i = array.length-1; i >= 0; i--){
-            if (!callback(array[i], i)){
+    static reverseEvery<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean) {
+        for (let i = array.length - 1; i >= 0; i--) {
+            if (!callback(array[i], i)) {
                 return false;
             }
         }
         return true;
     }
 
-    static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any){
-        for (let i = array.length-1; i >= 0; i--){
+    static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any) {
+        for (let i = array.length - 1; i >= 0; i--) {
             callback(array[i], i);
         }
     }
 
-    static async asyncForEach(array, callback, runAsynchronous?) {
+    static async asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean) {
         runAsynchronous = Helper.nonNull(runAsynchronous, false);
 
         let validPromises = [];
@@ -59,7 +59,7 @@ export class ArrayHelper{
         return Promise.all(validPromises);
     }
 
-    static shuffle(array) {
+    static shuffle<Type>(array: Type[]) {
         let currentIndex = array.length, temporaryValue, randomIndex;
 
         // While there remain elements to shuffle...
@@ -78,4 +78,14 @@ export class ArrayHelper{
         return array;
     }
 
+    static rotate<T>(array: T[], index: number): T[] {
+        index %= array.length;
+        if (index < 0) {
+            index += array.length
+        }
+        const arrCopy = array.slice(0);
+        const rotatingPart = arrCopy.splice(0, index);
+        arrCopy.push(...rotatingPart);
+        return arrCopy;
+    }
 }

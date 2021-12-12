@@ -65,7 +65,7 @@ export declare class Helper {
     static timeout(time: any, otherPromise: any, timeoutResult?: any): Promise<any>;
     static execNonThrow(fn: (...any: any) => any): (...args: any[]) => any;
     /** @deprecated Use ArrayHelper.shuffle instead */
-    static shuffleArray(array: any): any;
+    static shuffleArray(array: any): unknown[];
     /** @deprecated use ArrayHelper.reverseForEach instead */
     static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any): void;
     /** @deprecated use ArrayHelper.asyncForEach instead */

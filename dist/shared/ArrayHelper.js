@@ -78,6 +78,16 @@ class ArrayHelper {
         }
         return array;
     }
+    static rotate(array, index) {
+        index %= array.length;
+        if (index < 0) {
+            index += array.length;
+        }
+        const arrCopy = array.slice(0);
+        const rotatingPart = arrCopy.splice(0, index);
+        arrCopy.push(...rotatingPart);
+        return arrCopy;
+    }
 }
 exports.ArrayHelper = ArrayHelper;
 //# sourceMappingURL=ArrayHelper.js.map
