@@ -8,6 +8,8 @@ const packageName = require("../package.json").name;
 let pathsToProjects = [
     "/home/silas/Projekte/web/project-echo",
     "/home/silas/Projekte/web/dnd",
+    "/home/silas/Projekte/web/typeorm-sync",
+    "/home/silas/Projekte/web/typeorm-sync-nextjs",
     "/home/silas/Projekte/web/worktime",
     "/home/silas/Projekte/web/TaskList",
     "/home/silas/Projekte/web/hoffnungsfest",

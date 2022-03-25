@@ -22,11 +22,10 @@ class Helper {
      * Testet, ob eine Variable null oder Undefined ist
      *
      * @param variable
-     * @param args
      * @returns {boolean}
      */
-    static isNull(variable, ...args) {
-        return Helper.isAllNull(...arguments);
+    static isNull(variable) {
+        return Helper.isAllNull(variable);
     }
     static isAllNull(...args) {
         for (let i = 0; i < args.length; i++) {
@@ -43,11 +42,10 @@ class Helper {
      * Testet, ob eine Variable nicht (null oder undefined) ist
      *
      * @param variable
-     * @param args
      * @returns {boolean}
      */
-    static isNotNull(variable, ...args) {
-        return Helper.isAllNotNull(...arguments);
+    static isNotNull(variable) {
+        return Helper.isAllNotNull(variable);
     }
     static isAllNotNull(...args) {
         for (let i = 0; i < args.length; i++) {
@@ -154,6 +152,9 @@ class Helper {
     }
     static isMobileApp() {
         return (typeof window["device"] !== "undefined" && window["device"].platform !== "browser");
+    }
+    static isIOS() {
+        return (typeof window["device"] !== "undefined" && window["device"].platform === "iOS");
     }
     static toSnakeCase(camelCase) {
         return camelCase.replace(/([A-Z])/g, function (find, something, position) {

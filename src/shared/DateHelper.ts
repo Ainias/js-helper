@@ -15,7 +15,7 @@ export class DateHelper {
      * @param useUTC
      * @returns {*|void|string}
      */
-    static strftime(sFormat: string, date?: Date, useUTC?: boolean) {
+    static strftime(sFormat: string, date?: Date|null, useUTC?: boolean) {
         useUTC = Helper.nonNull(useUTC, false);
 
         date = Helper.nonNull(date, new Date());

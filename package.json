@@ -13,7 +13,7 @@
   },
   "author": "Silas Günther",
   "peerDependencies": {
-    "typeorm": "^0.2.34"
+    "typeorm": "^0.3.3"
   },
   "dependencies": {},
   "main": "dist/shared.js",

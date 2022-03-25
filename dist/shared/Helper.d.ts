@@ -4,20 +4,18 @@ export declare class Helper {
      * Testet, ob eine Variable null oder Undefined ist
      *
      * @param variable
-     * @param args
      * @returns {boolean}
      */
-    static isNull(variable: any, ...args: any[]): boolean;
+    static isNull<T>(variable: T | null | undefined): variable is null | undefined;
     static isAllNull(...args: any[]): boolean;
     static isAtLeastOneNull(...args: any[]): boolean;
     /**
      * Testet, ob eine Variable nicht (null oder undefined) ist
      *
      * @param variable
-     * @param args
      * @returns {boolean}
      */
-    static isNotNull(variable: any, ...args: any[]): boolean;
+    static isNotNull<T>(variable: T): variable is Exclude<T, null | undefined>;
     static isAllNotNull(...args: any[]): boolean;
     static isAtLeastOneNotNull(...args: any[]): boolean;
     static delay<ResultType>(duration: number, args?: ResultType): Promise<ResultType>;
@@ -60,6 +58,7 @@ export declare class Helper {
     static escapeRegExp(str: any): any;
     static imageUrlIsEmpty(url: any): boolean;
     static isMobileApp(): boolean;
+    static isIOS(): boolean;
     static toSnakeCase(camelCase: any): any;
     static wait(timeout: any, result?: any): Promise<unknown>;
     static timeout(time: any, otherPromise: any, timeoutResult?: any): Promise<any>;
