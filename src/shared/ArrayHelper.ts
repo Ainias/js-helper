@@ -78,6 +78,14 @@ export class ArrayHelper {
         return array;
     }
 
+    static arrayToObject<ArrayType>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string|number) {
+        const obj: {[key in string | number]: ArrayType} = {};
+        array.forEach(val => {
+            obj[indexFunction(val)] = val;
+        });
+        return obj;
+    }
+
     static rotate<T>(array: T[], index: number): T[] {
         index %= array.length;
         if (index < 0) {

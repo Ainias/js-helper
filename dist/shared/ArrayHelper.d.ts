@@ -6,5 +6,9 @@ export declare class ArrayHelper {
     static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any): void;
     static asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean): Promise<any[]>;
     static shuffle<Type>(array: Type[]): Type[];
+    static arrayToObject<ArrayType>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string | number): {
+        [x: string]: ArrayType;
+        [x: number]: ArrayType;
+    };
     static rotate<T>(array: T[], index: number): T[];
 }

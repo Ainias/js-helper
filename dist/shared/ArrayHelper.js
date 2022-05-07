@@ -78,6 +78,13 @@ class ArrayHelper {
         }
         return array;
     }
+    static arrayToObject(array, indexFunction) {
+        const obj = {};
+        array.forEach(val => {
+            obj[indexFunction(val)] = val;
+        });
+        return obj;
+    }
     static rotate(array, index) {
         index %= array.length;
         if (index < 0) {

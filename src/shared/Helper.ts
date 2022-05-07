@@ -94,12 +94,14 @@ export class Helper {
         return !Helper.empty(value);
     }
 
+    /**
+     * @deprecated Use ArrayHelper.arrayToObject instead
+     *
+     * @param array
+     * @param indexFunction
+     */
     static arrayToObject<ArrayType = any>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string|number) {
-        let obj: {[key in string | number]: ArrayType} = {};
-        array.forEach(val => {
-            obj[indexFunction(val)] = val;
-        });
-        return obj;
+        return ArrayHelper.arrayToObject(array, indexFunction);
     }
 
     /**

@@ -14,11 +14,13 @@ __exportStar(require("./shared/ArrayHelper"), exports);
 __exportStar(require("./shared/Counter"), exports);
 __exportStar(require("./shared/DateHelper"), exports);
 __exportStar(require("./shared/Helper"), exports);
+__exportStar(require("./shared/JSONType"), exports);
 __exportStar(require("./shared/JsonHelper"), exports);
 __exportStar(require("./shared/MigrationHelper"), exports);
 __exportStar(require("./shared/ObjectHelper"), exports);
 __exportStar(require("./shared/Prioritized"), exports);
 __exportStar(require("./shared/Promises/PromiseWithHandlers"), exports);
 __exportStar(require("./shared/Random"), exports);
+__exportStar(require("./shared/TypeHelper"), exports);
 __exportStar(require("./shared/XSSHelper"), exports);
 //# sourceMappingURL=shared.js.map

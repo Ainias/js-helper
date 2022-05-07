@@ -42,6 +42,12 @@ export declare class Helper {
      * @returns {boolean}
      */
     static notEmpty(value: any): boolean;
+    /**
+     * @deprecated Use ArrayHelper.arrayToObject instead
+     *
+     * @param array
+     * @param indexFunction
+     */
     static arrayToObject<ArrayType = any>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string | number): {
         [x: string]: ArrayType;
         [x: number]: ArrayType;

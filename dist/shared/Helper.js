@@ -95,12 +95,14 @@ class Helper {
     static notEmpty(value) {
         return !Helper.empty(value);
     }
+    /**
+     * @deprecated Use ArrayHelper.arrayToObject instead
+     *
+     * @param array
+     * @param indexFunction
+     */
     static arrayToObject(array, indexFunction) {
-        let obj = {};
-        array.forEach(val => {
-            obj[indexFunction(val)] = val;
-        });
-        return obj;
+        return ArrayHelper_1.ArrayHelper.arrayToObject(array, indexFunction);
     }
     /**
      * Erstellt ein FormData-Object von JSON-Data. Nützlich für fetch

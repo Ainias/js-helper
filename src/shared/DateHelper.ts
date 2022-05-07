@@ -4,7 +4,8 @@ export class DateHelper {
     private static translationCallback: (key: string) => string;
 
     static FORMAT = {
-        ISO_TIME: "%Y-%m-%dT%H:%M:%S"
+        ISO_TIME: "%Y-%m-%dT%H:%M:%S",
+        GERMAN: "%d.%m-%y %H:%M:%S"
     }
 
     /**
