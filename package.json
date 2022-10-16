@@ -1,10 +1,10 @@
 {
   "name": "js-helper",
   "displayName": "Helper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ein paar JS-Helper",
   "scripts": {
-    "build": "node bin/build.js &tsc",
+    "build": "node bin/build.js & tsc",
     "update packages": "node bin/updateCopies.js"
   },
   "repository": {

@@ -16,7 +16,6 @@ __exportStar(require("./shared/DateHelper"), exports);
 __exportStar(require("./shared/Helper"), exports);
 __exportStar(require("./shared/JSONType"), exports);
 __exportStar(require("./shared/JsonHelper"), exports);
-__exportStar(require("./shared/MigrationHelper"), exports);
 __exportStar(require("./shared/ObjectHelper"), exports);
 __exportStar(require("./shared/Prioritized"), exports);
 __exportStar(require("./shared/Promises/PromiseWithHandlers"), exports);
