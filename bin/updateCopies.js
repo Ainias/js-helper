@@ -8,6 +8,7 @@ const packageName = require("../package.json").name;
 let pathsToProjects = [
     "/home/silas/Projekte/web/nextjsTest/poc-nextjs",
     "/home/silas/Projekte/web/project-echo",
+    "/home/silas/Projekte/web/smd-mail",
     "/home/silas/Projekte/web/dnd",
     "/home/silas/Projekte/web/bat",
     "/home/silas/Projekte/web/typeorm-sync",
