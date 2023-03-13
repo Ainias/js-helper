@@ -27,10 +27,11 @@ cd js-helper
 
 npm install
 npm run build
-
-git add dist/
+git add -u
+git commit -m "pre-version-commit for version $versionName"
 npm version "$versionName"
-#git push
+npm publish
+git push
 
 echo "$TMPDIR"
 

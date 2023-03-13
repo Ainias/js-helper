@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git://github.com/Ainias/js-helper.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Silas Günther",
   "peerDependencies": {
     "typeorm": "^0.3.3"
