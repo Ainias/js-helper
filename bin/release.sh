@@ -17,21 +17,23 @@ if [ -n "$versionExists" ]; then
 	echo "Version existiert bereits!";
 	exit 1;
 fi;
-
+WORKING_DIR=$(pwd)
 TMPDIR=$(mktemp -d)
 
 cd "$TMPDIR";
-git clone $REPOSITORY
-pwd
-cd js-helper
+git clone $REPOSITORY project
+cd project
 
 npm install
 npm run build
 git add -u
-git commit -m "pre-version-commit for version $versionName"
+git commit -m "pre-version-commit for version $versionName" || echo "no commit needed"
 npm version "$versionName"
 npm publish
 git push
+
+cd "$WORKING_DIR"
+git pull;
 
 echo "$TMPDIR"
 

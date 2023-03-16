@@ -15,9 +15,7 @@
     "allowJs": true
   },
   "include": [
-    "./src/client.ts",
-    "./src/server.ts",
-    "./src/shared.ts"
+    "./src/js-helper.ts",
   ],
   "exclude": []
 

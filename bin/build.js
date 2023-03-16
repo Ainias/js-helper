@@ -48,19 +48,8 @@ async function buildEntryPoints(fileOption, target) {
     fs.writeFileSync(target, imports);
 }
 
-
-// buildEntryPoints({
-//     input: [
-//         path.resolve(process.cwd(), "src/server/"),
-//     ],
-// }, "./src/server.ts");
 buildEntryPoints({
     input: [
-        path.resolve(process.cwd(), "src/client/"),
+        path.resolve(process.cwd(), "src/"),
     ],
-}, "./src/client.ts");
-buildEntryPoints({
-    input: [
-        path.resolve(process.cwd(), "src/shared/"),
-    ],
-}, "./src/shared.ts");
+}, "./src/js-helper.ts");

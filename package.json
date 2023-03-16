@@ -15,9 +15,6 @@
     "access": "public"
   },
   "author": "Silas Günther",
-  "peerDependencies": {
-    "typeorm": "^0.3.3"
-  },
   "dependencies": {},
   "main": "dist/shared.js",
   "devDependencies": {
