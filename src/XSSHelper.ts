@@ -1,5 +1,3 @@
-import {Helper} from "./Helper";
-
 export class XSSHelper {
     static escapeHTML(text) {
         if (typeof text !== "string"){
