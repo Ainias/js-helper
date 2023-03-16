@@ -1,7 +1,7 @@
 {
   "name": "@ainias42/js-helper",
   "displayName": "Helper",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Ein paar JS-Helper",
   "scripts": {
     "build": "node bin/build.js & tsc",
