@@ -16,7 +16,7 @@
   },
   "author": "Silas Günther",
   "dependencies": {},
-  "main": "dist/shared.js",
+  "main": "dist/js-helper.js",
   "devDependencies": {
     "@types/node": "^15.12.2",
     "typeorm": "^0.2.34",
