@@ -1,5 +1,5 @@
 import {Helper} from "./Helper";
-import {ValueOf} from "./TypeHelper";
+import {ExcludeUndefined, URecord, ValueOf} from "./TypeHelper";
 
 export class ObjectHelper{
     /**
@@ -74,11 +74,23 @@ export class ObjectHelper{
         return false;
     }
 
-    static entries<T>(object: T){
-        return Object.entries(object) as [keyof T, ValueOf<T>][]
+    static entries<T extends URecord<any, any>, B extends boolean>(object: T, filterUndefined?: B): B extends false ? [keyof T, ValueOf<T>][] : [keyof T, ExcludeUndefined<ValueOf<T>>][]{
+        const entries = Object.entries(object) as [keyof T, ValueOf<T>][];
+        if (filterUndefined !== false){
+            return entries.filter(([, val]) => val !== undefined);
+        }
+        return entries
     }
 
-    static keys<T>(object: T){
+    static values<T extends URecord<any, any>, B extends boolean>(object: T, filterUndefined?: B): B extends false ? ValueOf<T>[] : ExcludeUndefined<ValueOf<T>>[]{
+        const entries = Object.values(object) as ValueOf<T>[];
+        if (filterUndefined !== false){
+            return entries.filter(( val) => val !== undefined);
+        }
+        return entries
+    }
+
+    static keys<T extends URecord<any, any>>(object: T){
         return Object.keys(object) as (keyof T)[]
     }
 }

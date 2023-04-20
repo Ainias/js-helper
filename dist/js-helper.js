@@ -22,4 +22,5 @@ __exportStar(require("./Promises/PromiseWithHandlers"), exports);
 __exportStar(require("./Random"), exports);
 __exportStar(require("./TypeHelper"), exports);
 __exportStar(require("./XSSHelper"), exports);
+__exportStar(require("./js-helper"), exports);
 //# sourceMappingURL=js-helper.js.map

@@ -8,6 +8,7 @@ export type PropertyNamesWithType<T, Includes> = {
 
 export type ExcludePropertyType<T, Excluded> = Pick<T, PropertyNamesWithoutType<T, Excluded>>;
 export type OnlyPropertyType<T, Only> = Pick<T, PropertyNamesWithType<T, Only>>;
+export type ExcludeUndefined<T> = Exclude<T, undefined>
 
 export type ReplacePropertyType<T, Search, Replacement> = {
     [K in keyof T]: T[K] extends Search ? Replacement : T[K]
@@ -17,3 +18,5 @@ export type Override<T1, T2> = Omit<T1, keyof T2> & T2;
 export type Conditional<T1, T2> = Partial<T1> | (T1 & T2);
 export type ValueOf<T> = T[keyof T];
 export type Recursive<T> = T | T[] | Recursive<T>[];
+
+export type URecord<Key extends number|string|symbol, Value> = Record<Key, Value|undefined>

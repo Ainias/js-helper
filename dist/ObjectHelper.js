@@ -66,8 +66,19 @@ class ObjectHelper {
         }
         return false;
     }
-    static entries(object) {
-        return Object.entries(object);
+    static entries(object, filterUndefined) {
+        const entries = Object.entries(object);
+        if (filterUndefined !== false) {
+            return entries.filter(([, val]) => val !== undefined);
+        }
+        return entries;
+    }
+    static values(object, filterUndefined) {
+        const entries = Object.values(object);
+        if (filterUndefined !== false) {
+            return entries.filter((val) => val !== undefined);
+        }
+        return entries;
     }
     static keys(object) {
         return Object.keys(object);
