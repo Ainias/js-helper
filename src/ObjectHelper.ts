@@ -74,7 +74,7 @@ export class ObjectHelper{
         return false;
     }
 
-    static entries<T extends URecord<any, any>, B extends boolean>(object: T, filterUndefined?: B): B extends false ? [keyof T, ValueOf<T>][] : [keyof T, ExcludeUndefined<ValueOf<T>>][]{
+    static entries<T extends URecord<any, any>, B extends boolean = true>(object: T, filterUndefined?: B): B extends false ? [keyof T, ValueOf<T>][] : [keyof T, ExcludeUndefined<ValueOf<T>>][]{
         const entries = Object.entries(object) as [keyof T, ValueOf<T>][];
         if (filterUndefined !== false){
             return entries.filter(([, val]) => val !== undefined);
@@ -82,7 +82,7 @@ export class ObjectHelper{
         return entries
     }
 
-    static values<T extends URecord<any, any>, B extends boolean>(object: T, filterUndefined?: B): B extends false ? ValueOf<T>[] : ExcludeUndefined<ValueOf<T>>[]{
+    static values<T extends URecord<any, any>, B extends boolean = true>(object: T, filterUndefined?: B): B extends false ? ValueOf<T>[] : ExcludeUndefined<ValueOf<T>>[]{
         const entries = Object.values(object) as ValueOf<T>[];
         if (filterUndefined !== false){
             return entries.filter(( val) => val !== undefined);
