@@ -3,8 +3,8 @@ export class PromiseWithHandlers<T> extends Promise<T> {
     private readonly rejecter: (reason?: any) => void;
 
     constructor(executor?: (resolve: (value?: (PromiseLike<T> | T)) => void, reject: (reason?: any) => void) => void) {
-        let resolver = null;
-        let rejecter = null;
+        let resolver: any = null;
+        let rejecter: any = null;
 
         super((res, rej) => {
             resolver = res;

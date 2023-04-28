@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Random = void 0;
-const Helper_1 = require("./Helper");
 class Random {
     static seedRandom(seed) {
         this._seed = seed;
@@ -15,8 +14,7 @@ class Random {
     static getIntRandom(maxValue) {
         return Math.floor(Random.getRandom() * (maxValue + 1));
     }
-    static getStringRandom(numSigns, alphabet) {
-        alphabet = Helper_1.Helper.nonNull(alphabet, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+    static getStringRandom(numSigns, alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
         let random = "";
         const numAlphabet = alphabet.length - 1;
         for (let i = 0; i < numSigns; i++) {

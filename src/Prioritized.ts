@@ -10,12 +10,12 @@ export class Prioritized {
     _success = {};
     _highestPromise = null;
 
-    constructor(promises?) {
+    constructor(promises?: Promise<any>[]|Record<number, Promise<any>>) {
         promises = Helper.nonNull(promises, {});
 
         this._callbacks = [];
         if (Array.isArray(promises)) {
-            let tmpPromises = {};
+            let tmpPromises: Record<number, Promise<any>> = {};
             promises.forEach((promise, i) => {
                 tmpPromises[(i + 1) * 10] = promise;
             });

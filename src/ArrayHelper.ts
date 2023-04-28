@@ -1,6 +1,11 @@
 import {Helper} from "./Helper";
+import {ExcludeUndefined} from "./TypeHelper";
 
 export class ArrayHelper {
+
+    static noUndefined<ArrayType>(array: (ArrayType)[]){
+        return array.filter(arr => arr !== undefined) as ExcludeUndefined<ArrayType>[];
+    }
 
     static reverseFind<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean) {
         for (let i = array.length - 1; i >= 0; i--) {

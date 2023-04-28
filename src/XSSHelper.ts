@@ -1,5 +1,5 @@
 export class XSSHelper {
-    static escapeHTML(text) {
+    static escapeHTML(text: any) {
         if (typeof text !== "string"){
             return text
         }
@@ -13,11 +13,11 @@ export class XSSHelper {
         };
 
         return text.replace(/[&<>"']/g, function (m) {
-            return MAP[m];
+            return MAP[m as keyof typeof MAP];
         });
     }
 
-    static escapeJS(text) {
+    static escapeJS(text: any) {
         if (typeof text !== "string"){
             return text
         }

@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrayHelper = void 0;
 const Helper_1 = require("./Helper");
 class ArrayHelper {
+    static noUndefined(array) {
+        return array.filter(arr => arr !== undefined);
+    }
     static reverseFind(array, callback) {
         for (let i = array.length - 1; i >= 0; i--) {
             if (callback(array[i], i)) {

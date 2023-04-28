@@ -1,4 +1,5 @@
 export declare class ArrayHelper {
+    static noUndefined<ArrayType>(array: (ArrayType)[]): Exclude<ArrayType, undefined>[];
     static reverseFind<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean): ArrayType;
     static reverseIndexOf<ArrayType = any>(array: ArrayType[], element: ArrayType, fromIndex?: number): number;
     static reverseSome<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean): boolean;

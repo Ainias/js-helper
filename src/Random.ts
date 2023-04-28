@@ -1,9 +1,9 @@
 import {Helper} from "./Helper";
 
 export class Random{
-    private static _seed: any = new Date().getTime();
+    private static _seed: number = new Date().getTime();
 
-    static seedRandom(seed) {
+    static seedRandom(seed: number) {
         this._seed = seed;
     }
 
@@ -18,9 +18,7 @@ export class Random{
         return Math.floor(Random.getRandom() * (maxValue+1));
     }
 
-    static getStringRandom(numSigns: number, alphabet?: string): string{
-        alphabet = Helper.nonNull(alphabet, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-
+    static getStringRandom(numSigns: number, alphabet =  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"): string{
         let random = "";
         const numAlphabet = alphabet.length-1;
         for(let i = 0; i < numSigns; i++){

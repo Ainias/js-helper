@@ -6,7 +6,7 @@ export declare class Prioritized {
     _lastResult: any;
     _success: {};
     _highestPromise: any;
-    constructor(promises?: any);
+    constructor(promises?: Promise<any>[] | Record<number, Promise<any>>);
     _callCallbacks(): void;
     _checkHighest(): boolean;
     do(callback: any): void;

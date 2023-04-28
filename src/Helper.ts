@@ -65,7 +65,7 @@ export class Helper {
      * @param args
      * @returns {*}
      */
-    static nonNull(val1, val2?, ...args) {
+    static nonNull(val1: any, val2?, ...args) {
         for (let i = 0; i < arguments.length; i++) {
             if (Helper.isNotNull(arguments[i])) {
                 return arguments[i];

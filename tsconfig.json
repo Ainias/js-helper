@@ -12,7 +12,9 @@
     "sourceMap": true,
     "declaration": true,
     "module": "commonjs",
-    "allowJs": true
+    "allowJs": true,
+    "strict": false,
+    "strictFunctionTypes": false
   },
   "include": [
     "./src/js-helper.ts",
