@@ -1,7 +1,7 @@
 import {Helper} from "./Helper";
 
 export class JsonHelper {
-    static deepEqual(a, b) {
+    static deepEqual(a, b, depth = -1) {
         if (a === b) {
             return true;
         }
@@ -10,16 +10,19 @@ export class JsonHelper {
             return false;
         }
 
-        // array deepEqual
-        if (a instanceof Array && b instanceof Array && a.length === b.length) {
-            return a["every"]((obj, i) => {
-                return JsonHelper.deepEqual(obj, b[i])
-            });
-        }
-
         //date deepEqual
         if (a instanceof Date && b instanceof Date) {
             return a.getTime() === b.getTime();
+        }
+
+        // array deepEqual
+        if (a instanceof Array && b instanceof Array && a.length === b.length) {
+            return a["every"]((obj, i) => {
+                if (depth === 0){
+                    return obj === b[i];
+                }
+                return JsonHelper.deepEqual(obj, b[i], depth-1)
+            });
         }
 
         // object deep copy
@@ -28,7 +31,10 @@ export class JsonHelper {
             let bKeys = Object.keys(b);
 
             return aKeys.length === bKeys.length && aKeys["every"]((key) => {
-                return Helper.isNotNull(b[key]) && JsonHelper.deepEqual(a[key], b[key])
+                if (depth === 0){
+                    return a[key] === b[key];
+                }
+                return Helper.isNotNull(b[key]) && JsonHelper.deepEqual(a[key], b[key], depth-1)
             })
         }
 
