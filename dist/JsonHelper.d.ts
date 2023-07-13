@@ -1,5 +1,5 @@
 export declare class JsonHelper {
-    static deepEqual(a: any, b: any): any;
+    static deepEqual(a: any, b: any, depth?: number): any;
     /**
      * Deepcopies JSON
      *
