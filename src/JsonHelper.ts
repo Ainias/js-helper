@@ -25,7 +25,7 @@ export class JsonHelper {
             });
         }
 
-        // object deep copy
+        // object deep equal
         if (typeof a === "object" && typeof b === "object") {
             let aKeys = Object.keys(a);
             let bKeys = Object.keys(b);

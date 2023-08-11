@@ -220,10 +220,6 @@ class Helper {
     static toArray(object) {
         return ObjectHelper_1.ObjectHelper.toArray(object);
     }
-    /** @deprecated Use ObjectHelper.deepEqual instead */
-    static deepEqual(a, b) {
-        return ObjectHelper_1.ObjectHelper.deepEqual(a, b);
-    }
     /**
      * @deprecated Use ObjectHelper.invertKeyValues instead
      *

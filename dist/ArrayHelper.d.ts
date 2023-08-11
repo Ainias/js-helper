@@ -1,3 +1,4 @@
+import { URecord } from "./TypeHelper";
 export declare class ArrayHelper {
     static noUndefined<ArrayType>(array: (ArrayType)[]): Exclude<ArrayType, undefined>[];
     static reverseFind<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean): ArrayType;
@@ -7,9 +8,7 @@ export declare class ArrayHelper {
     static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any): void;
     static asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean): Promise<any[]>;
     static shuffle<Type>(array: Type[]): Type[];
-    static arrayToObject<ArrayType>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string | number): {
-        [x: string]: ArrayType;
-        [x: number]: ArrayType;
-    };
+    static arrayToObject<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): URecord<Key, ArrayType>;
+    static groupBy<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): URecord<Key, ArrayType[]>;
     static rotate<T>(array: T[], index: number): T[];
 }

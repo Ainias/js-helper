@@ -232,11 +232,6 @@ export class Helper {
         return ObjectHelper.toArray(object)
     }
 
-    /** @deprecated Use ObjectHelper.deepEqual instead */
-    static deepEqual(a, b) {
-        return ObjectHelper.deepEqual(a, b);
-    }
-
     /**
      * @deprecated Use ObjectHelper.invertKeyValues instead
      *

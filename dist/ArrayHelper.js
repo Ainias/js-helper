@@ -81,10 +81,20 @@ class ArrayHelper {
         }
         return array;
     }
-    static arrayToObject(array, indexFunction) {
+    static arrayToObject(array, index) {
         const obj = {};
         array.forEach(val => {
-            obj[indexFunction(val)] = val;
+            obj[index(val)] = val;
+        });
+        return obj;
+    }
+    static groupBy(array, index) {
+        const obj = {};
+        array.forEach(val => {
+            var _a;
+            const key = index(val);
+            (_a = obj[key]) !== null && _a !== void 0 ? _a : (obj[key] = []);
+            obj[key].push(val);
         });
         return obj;
     }

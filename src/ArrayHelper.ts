@@ -1,9 +1,10 @@
 import {Helper} from "./Helper";
-import {ExcludeUndefined} from "./TypeHelper";
+import {ExcludeUndefined, PropertyNamesWithType, URecord} from "./TypeHelper";
+import {type} from "os";
 
 export class ArrayHelper {
 
-    static noUndefined<ArrayType>(array: (ArrayType)[]){
+    static noUndefined<ArrayType>(array: (ArrayType)[]) {
         return array.filter(arr => arr !== undefined) as ExcludeUndefined<ArrayType>[];
     }
 
@@ -83,10 +84,20 @@ export class ArrayHelper {
         return array;
     }
 
-    static arrayToObject<ArrayType>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string|number) {
-        const obj: {[key in string | number]: ArrayType} = {};
+    static arrayToObject<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)) {
+        const obj = {} as URecord<Key, ArrayType>;
         array.forEach(val => {
-            obj[indexFunction(val)] = val;
+            obj[index(val)] = val;
+        });
+        return obj;
+    }
+
+    static groupBy<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)) {
+        const obj = {} as URecord<Key, ArrayType[]>;
+        array.forEach(val => {
+            const key = index(val);
+            obj[key] ??= [];
+            obj[key].push(val);
         });
         return obj;
     }

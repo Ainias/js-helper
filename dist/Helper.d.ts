@@ -48,10 +48,7 @@ export declare class Helper {
      * @param array
      * @param indexFunction
      */
-    static arrayToObject<ArrayType = any>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string | number): {
-        [x: string]: ArrayType;
-        [x: number]: ArrayType;
-    };
+    static arrayToObject<ArrayType = any>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string | number): import("./TypeHelper").URecord<string | number, ArrayType>;
     /**
      * Erstellt ein FormData-Object von JSON-Data. Nützlich für fetch
      *
@@ -79,8 +76,6 @@ export declare class Helper {
     static objectForEach(object: any, callback: any): void;
     /** @deprecated use ObjectHelper.toArray instead */
     static toArray(object: any): any[];
-    /** @deprecated Use ObjectHelper.deepEqual instead */
-    static deepEqual(a: any, b: any): any;
     /**
      * @deprecated Use ObjectHelper.invertKeyValues instead
      *

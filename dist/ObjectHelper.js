@@ -29,24 +29,6 @@ class ObjectHelper {
             callback(object[key], key, object);
         });
     }
-    static deepEqual(a, b) {
-        if (a === b) {
-            return true;
-        }
-        if (typeof a === "object" && typeof b === "object") {
-            let keysOfB = Object.keys(b);
-            let childrenDeepEqual = Object.keys(a).every((key) => {
-                let index = keysOfB.indexOf(key);
-                if (index < 0) {
-                    return false;
-                }
-                keysOfB.splice(index, 1);
-                return ObjectHelper.deepEqual(a[key], b[key]);
-            });
-            return (childrenDeepEqual && keysOfB.length === 0);
-        }
-        return false;
-    }
     /**
      * Testet, ob der übergebene Index am Objekt gesetzt ist. Werden mehrere Indexes übergeben, so wird getestet,
      * ob die "Index-Kette" gesetzt ist.
