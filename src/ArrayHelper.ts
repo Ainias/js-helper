@@ -1,6 +1,5 @@
 import {Helper} from "./Helper";
-import {ExcludeUndefined, PropertyNamesWithType, URecord} from "./TypeHelper";
-import {type} from "os";
+import {ExcludeUndefined, URecord} from "./TypeHelper";
 
 export class ArrayHelper {
 
