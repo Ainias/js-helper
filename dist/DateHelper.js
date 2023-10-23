@@ -96,6 +96,6 @@ class DateHelper {
 exports.DateHelper = DateHelper;
 DateHelper.FORMAT = {
     ISO_TIME: "%Y-%m-%dT%H:%M:%S",
-    GERMAN: "%d.%m-%y %H:%M:%S"
+    GERMAN: "%d.%m.%y %H:%M:%S"
 };
 //# sourceMappingURL=DateHelper.js.map

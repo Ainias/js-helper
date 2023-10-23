@@ -5,7 +5,7 @@ export class DateHelper {
 
     static FORMAT = {
         ISO_TIME: "%Y-%m-%dT%H:%M:%S",
-        GERMAN: "%d.%m-%y %H:%M:%S"
+        GERMAN: "%d.%m.%y %H:%M:%S"
     }
 
     /**

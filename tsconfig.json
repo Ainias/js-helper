@@ -1,20 +1,26 @@
 {
   "version": "2.0.2",
   "compilerOptions": {
-    "outDir": "./dist",
-    "target": "es6",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
-    "lib": ["es5", "es2015.promise", "dom", "es2015", "es6"],
-    "moduleResolution": "node",
+    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "declaration": true,
+    "lib": [
+      "es5",
+      "es2015.promise",
+      "dom",
+      "es2015",
+      "es6"
+    ],
     "module": "commonjs",
-    "allowJs": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "sourceMap": true,
     "strict": false,
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "target": "es6"
   },
   "include": [
     "./src/js-helper.ts",
