@@ -71,7 +71,7 @@ export declare class Helper {
     /** @deprecated use ArrayHelper.reverseForEach instead */
     static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any): void;
     /** @deprecated use ArrayHelper.asyncForEach instead */
-    static asyncForEach(array: any, callback: any, runAsynchronous?: any): Promise<any[]>;
+    static asyncForEach(array: any, callback: any, runAsynchronous?: any): Promise<unknown[]>;
     /** @deprecated use ObjectHelper.objectForEach instead */
     static objectForEach(object: any, callback: any): void;
     /** @deprecated use ObjectHelper.toArray instead */
