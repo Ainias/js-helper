@@ -49,10 +49,10 @@ export class ArrayHelper {
         }
     }
 
-    static async asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean): Promise<ResultType[]> {
+    static async asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean) {
         runAsynchronous = Helper.nonNull(runAsynchronous, false);
 
-        let validPromises: Promise<ResultType>[] = [];
+        let validPromises: Promise<Awaited<ResultType>>[] = [];
         for (let i = 0; i < array.length; i++) {
             let index = i;
             let currentPromise = Promise.resolve(callback(array[index], index, array));
