@@ -12,7 +12,8 @@
       "es2015.promise",
       "dom",
       "es2015",
-      "es6"
+      "es6",
+      "esnext"
     ],
     "module": "commonjs",
     "moduleResolution": "node",

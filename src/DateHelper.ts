@@ -3,10 +3,27 @@ import {Helper} from "./Helper";
 export class DateHelper {
     private static translationCallback: (key: string) => string;
 
+    private static readonly startTimestamp = Date.now();
+    private static readonly testTimestamp: number | undefined = (typeof process === "object" && process.env.TEST_TIMESTAMP) ? parseInt(process.env.TEST_TIMESTAMP) : undefined;
+
     static FORMAT = {
         ISO_TIME: "%Y-%m-%dT%H:%M:%S",
         GERMAN: "%d.%m.%y %H:%M:%S"
     }
+
+    static now() {
+        const realNow = Date.now();
+        if (this.testTimestamp !== undefined) {
+            const diff = realNow - this.startTimestamp;
+            return this.testTimestamp + diff;
+        }
+        return realNow;
+    }
+
+    static newDate() {
+        return new Date(DateHelper.now());
+    }
+
 
     /**
      * Formatiert ein Date-Object nach der Vorlage von der C-Funktion strftime

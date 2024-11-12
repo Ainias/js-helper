@@ -3,6 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DateHelper = void 0;
 const Helper_1 = require("./Helper");
 class DateHelper {
+    static now() {
+        const realNow = Date.now();
+        if (this.testTimestamp !== undefined) {
+            const diff = realNow - this.startTimestamp;
+            return this.testTimestamp + diff;
+        }
+        return realNow;
+    }
+    static newDate() {
+        return new Date(DateHelper.now());
+    }
     /**
      * Formatiert ein Date-Object nach der Vorlage von der C-Funktion strftime
      *
@@ -94,6 +105,8 @@ class DateHelper {
     }
 }
 exports.DateHelper = DateHelper;
+DateHelper.startTimestamp = Date.now();
+DateHelper.testTimestamp = (typeof process === "object" && process.env.TEST_TIMESTAMP) ? parseInt(process.env.TEST_TIMESTAMP) : undefined;
 DateHelper.FORMAT = {
     ISO_TIME: "%Y-%m-%dT%H:%M:%S",
     GERMAN: "%d.%m.%y %H:%M:%S"

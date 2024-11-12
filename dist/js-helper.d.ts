@@ -10,3 +10,4 @@ export * from './Promises/PromiseWithHandlers';
 export * from './Random';
 export * from './TypeHelper';
 export * from './XSSHelper';
+export * from './js-helper';

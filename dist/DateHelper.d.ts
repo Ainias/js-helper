@@ -1,9 +1,13 @@
 export declare class DateHelper {
     private static translationCallback;
+    private static readonly startTimestamp;
+    private static readonly testTimestamp;
     static FORMAT: {
         ISO_TIME: string;
         GERMAN: string;
     };
+    static now(): number;
+    static newDate(): Date;
     /**
      * Formatiert ein Date-Object nach der Vorlage von der C-Funktion strftime
      *
