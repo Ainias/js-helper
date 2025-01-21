@@ -8,7 +8,7 @@ const packageName = require("../package.json").name;
 let pathsToProjects = [
     "/Users/sguenter/Projekte/Privat/dnd",
     "/Users/sguenter/Projekte/Privat/libraries",
-    "/Users/sguenter/Projekte/Privat/users-next",
+    "/Users/sguenter/Projekte/Privat/dmscreen",
     "/Users/sguenter/Projekte/churchtools-mobile",
     // "/home/silas/Projekte/web/nextjsTest/poc-nextjs",
     // "/home/silas/Projekte/web/project-echo",

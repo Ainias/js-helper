@@ -7,6 +7,7 @@ export class JsonHelper {
         }
 
         if (a === null || b === null) {
+            console.log("LOG-d one of them is null", a, b)
             return false;
         }
 
@@ -34,7 +35,11 @@ export class JsonHelper {
                 if (depth === 0){
                     return a[key] === b[key];
                 }
-                return Helper.isNotNull(b[key]) && JsonHelper.deepEqual(a[key], b[key], depth-1)
+                if (!(key in b)){
+                    console.log("LOG-d b has not key", key, b);
+                    return false
+                }
+                return key in b && JsonHelper.deepEqual(a[key], b[key], depth-1)
             })
         }
 
