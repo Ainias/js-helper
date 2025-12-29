@@ -8,7 +8,6 @@ class JsonHelper {
             return true;
         }
         if (a === null || b === null) {
-            console.log("LOG-d one of them is null", a, b);
             return false;
         }
         //date deepEqual
@@ -33,7 +32,6 @@ class JsonHelper {
                     return a[key] === b[key];
                 }
                 if (!(key in b)) {
-                    console.log("LOG-d b has not key", key, b);
                     return false;
                 }
                 return key in b && JsonHelper.deepEqual(a[key], b[key], depth - 1);
