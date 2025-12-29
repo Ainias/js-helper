@@ -24,7 +24,7 @@ cd "$TMPDIR";
 git clone $REPOSITORY project
 cd project
 
-npm install
+npm ci
 npm run build
 npm version "$versionName"
 git add -u
