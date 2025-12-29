@@ -26,10 +26,10 @@ cd project
 
 npm install
 npm run build
+npm version "$versionName"
 git add -u
 git commit -m "pre-version-commit for version $versionName" || echo "no commit needed"
-npm version "$versionName"
-npm publish
+npm publish --tag latest
 git push
 
 cd "$WORKING_DIR"
