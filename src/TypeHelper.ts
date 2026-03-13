@@ -20,4 +20,4 @@ export type ValueOf<T> = T[keyof T];
 export type Recursive<T> = T | T[] | Recursive<T>[];
 export type Awaitable<T> = T | Promise<T>;
 
-export type URecord<Key extends number|string|symbol, Value> = Record<Key, Value|undefined>
+export type URecord<Key extends number|string|symbol, Value> = Partial<Record<Key, Value|undefined>>

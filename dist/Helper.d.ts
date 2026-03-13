@@ -48,7 +48,7 @@ export declare class Helper {
      * @param array
      * @param indexFunction
      */
-    static arrayToObject<ArrayType = any>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string | number): import("./TypeHelper").URecord<string | number, ArrayType>;
+    static arrayToObject<ArrayType = any>(array: ArrayType[], indexFunction: (arrayObj: ArrayType) => string | number): Partial<Record<string | number, ArrayType>>;
     /**
      * Erstellt ein FormData-Object von JSON-Data. Nützlich für fetch
      *

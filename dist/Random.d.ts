@@ -1,7 +1,10 @@
-export declare class Random {
-    private static _seed;
-    static seedRandom(seed: number): void;
-    static getRandom(): number;
-    static getIntRandom(maxValue: number): number;
-    static getStringRandom(numSigns: number, alphabet?: string): string;
+export declare class RandomClass {
+    private _seed;
+    seedRandom(seed: number): void;
+    getRandom(): number;
+    getIntRandom(maxValue: number): number;
+    getStringRandom(numSigns: number, alphabet?: string): string;
+    getRandomElement<Type>(array: Type[], removeElementFromArray?: boolean): Type;
+    shuffle<Type>(array: Type[]): Type[];
 }
+export declare const Random: RandomClass;

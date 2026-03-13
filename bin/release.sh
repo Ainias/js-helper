@@ -24,12 +24,12 @@ cd "$TMPDIR";
 git clone $REPOSITORY project
 cd project
 
-npm ci
+npm install
 npm run build
-npm version "$versionName"
 git add -u
 git commit -m "pre-version-commit for version $versionName" || echo "no commit needed"
-npm publish --tag latest
+npm version "$versionName"
+npm publish
 git push
 
 cd "$WORKING_DIR"

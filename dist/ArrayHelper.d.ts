@@ -1,4 +1,4 @@
-import { ExcludeUndefined, URecord } from "./TypeHelper";
+import { ExcludeUndefined } from "./TypeHelper";
 export declare class ArrayHelper {
     static noUndefined<ArrayType>(array: (ArrayType)[]): ExcludeUndefined<ArrayType>[];
     static reverseFind<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean): ArrayType;
@@ -8,7 +8,7 @@ export declare class ArrayHelper {
     static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any): void;
     static asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean): Promise<Awaited<Awaited<ResultType>>[]>;
     static shuffle<Type>(array: Type[]): Type[];
-    static arrayToObject<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): URecord<Key, ArrayType>;
-    static groupBy<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): URecord<Key, ArrayType[]>;
+    static arrayToObject<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): Partial<Record<Key, ArrayType>>;
+    static groupBy<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): Partial<Record<Key, ArrayType[]>>;
     static rotate<T>(array: T[], index: number): T[];
 }
