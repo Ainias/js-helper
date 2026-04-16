@@ -67,6 +67,17 @@ class ArrayHelper {
             return Promise.all(validPromises);
         });
     }
+    static partition(array, filter) {
+        const rejected = [];
+        const matched = array.filter((item, ...args) => {
+            const filterResult = filter(item, ...args);
+            if (!filterResult) {
+                rejected.push(item);
+            }
+            return filterResult;
+        });
+        return { matched, rejected };
+    }
     static shuffle(array) {
         let currentIndex = array.length, temporaryValue, randomIndex;
         // While there remain elements to shuffle...

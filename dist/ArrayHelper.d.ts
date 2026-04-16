@@ -7,6 +7,10 @@ export declare class ArrayHelper {
     static reverseEvery<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => boolean): boolean;
     static reverseForEach<ArrayType = any>(array: ArrayType[], callback: (element: ArrayType, index: number) => any): void;
     static asyncForEach<Type, ResultType>(array: Type[], callback: (item: Type, index: number, array: Type[]) => ResultType, runAsynchronous?: boolean): Promise<Awaited<Awaited<ResultType>>[]>;
+    static partition<Type>(array: Type[], filter: (item: Type, index: number, array: Type[]) => boolean): {
+        matched: Type[];
+        rejected: Type[];
+    };
     static shuffle<Type>(array: Type[]): Type[];
     static arrayToObject<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): Partial<Record<Key, ArrayType>>;
     static groupBy<ArrayType, Key extends symbol | string | number>(array: ArrayType[], index: ((arrayObj: ArrayType) => Key)): Partial<Record<Key, ArrayType[]>>;

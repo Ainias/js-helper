@@ -64,6 +64,18 @@ export class ArrayHelper {
         return Promise.all(validPromises);
     }
 
+    static partition<Type>(array: Type[], filter: (item: Type, index: number, array: Type[]) => boolean): {matched: Type[], rejected: Type[]}{
+        const rejected: Type[] = [];
+        const matched = array.filter((item, ...args) => {
+            const filterResult = filter(item, ...args);
+            if (!filterResult){
+                rejected.push(item);
+            }
+            return filterResult;
+        });
+        return {matched, rejected};
+    }
+
     static shuffle<Type>(array: Type[]) {
         let currentIndex = array.length, temporaryValue, randomIndex;
 
